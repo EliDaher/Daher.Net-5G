@@ -1,38 +1,11 @@
 import React from "react";
-import { ref, set, push } from "firebase/database";
+import { ref, set, push, get } from "firebase/database";
 import { database } from '../firebaseConfig';
-
-/*const addData = () => {
-    // إنشاء مرجع للبيانات
-    const dbRef = ref(database, "subscriptions"); // "subscriptions" هو اسم الجدول
-  
-    // استخدام push() لإضافة بيانات جديدة بمفتاح فريد
-    const newDataRef = push(dbRef);
-  
-    // إرسال البيانات
-    set(newDataRef, {
-      name: "John Doe",
-      contactNumber: "123456789",
-      speed: "100 Mbps",
-      userIp: "192.168.1.1",
-      userName: "johndoe",
-      password: "securepassword",
-      location: "New York",
-      sender: "Admin",
-    })
-    .then(() => {
-      console.log("Data added successfully!");
-    })
-    .catch((error) => {
-        console.error("Error adding data:", error);
-    });
-};*/
-
 
 function PopupForm({ isOpen, onClose, onSubmit }) {
   if (!isOpen) return null;
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
    
@@ -51,7 +24,14 @@ function PopupForm({ isOpen, onClose, onSubmit }) {
 
     // إرسال البيانات إلى Firebase
     const dbRef = ref(database, "Subscribers");
-    const newDataRef = push(dbRef);
+    const snapshot = await get(dbRef);
+    const subscriberCount = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
+    const subscriberId = subscriberCount + 1; // تعيين id جديد بناءً على العدد + 1
+
+    // إضافة id إلى البيانات
+    formData.id = subscriberId;
+    const newDataRef = ref(database, `Subscribers/${subscriberId}`);
+    await set(newDataRef, formData);
 
     set(newDataRef, formData)
     .then(() => {

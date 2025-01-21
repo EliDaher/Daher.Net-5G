@@ -3,7 +3,7 @@ import React from "react";
 function UserCard({userName, userIndex, userSpeed, userSender, userLocation, userAccount, userPassword, userContact, userIp, userFee}){
     return <>
         <strong className="text-primary900 underline underline-offset-2 text-2xl">{userIndex}.{userName}</strong>
-        <div className="font-bold text-gray-500 flex mt-3">
+        <div className="font-bold text-gray-500 flex mt-2">
             <p>سرعة الاشتراك : &nbsp;
             </p>  
             <div>{userSpeed}</div>
@@ -23,7 +23,7 @@ function UserCard({userName, userIndex, userSpeed, userSender, userLocation, use
             </p>  
             <div>{userLocation}</div>
         </div>
-        <div className="font-bold text-gray-500 flex">
+        <div className="font-bold text-gray-500 flex flex-col">
             <p>اسم المستخدم : &nbsp;
             </p>  
             <div>{userAccount}</div>
@@ -34,7 +34,7 @@ function UserCard({userName, userIndex, userSpeed, userSender, userLocation, use
             <div>{userPassword}</div>
         </div>
         <div className="font-bold text-gray-500 flex">
-            <p>للتصواصل : &nbsp;
+            <p>للتواصل : &nbsp;
             </p>  
             <div>{userContact}</div>
         </div>

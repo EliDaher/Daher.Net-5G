@@ -1,7 +1,6 @@
 import React from "react";
 import DaherLogo from "../images/DaherLogo";
 import Navbutton from "./Navbutton";
-import Dashboard from "../pages/Dahsboard";
 
 function Navbar(){
     return<>
