@@ -1,8 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { database } from '../firebaseConfig';
 import { ref, get, child } from "firebase/database";
+import PaymentsForm from "./PaymentsForm";
+import InvoiceForm from "./InvoiceForm";
 
-function CustomerDetails({id}){
+function CustomerDetails({id, total}){
+  
+    const [invoiceIsOpen, setInvoiceIsOpen] = useState(false);
+    const closeInvoiceModal = () => setInvoiceIsOpen(false);
+    const openInvoiceModal = () => setInvoiceIsOpen(true);  
+    const handleInvoiceSubmit = () => {
+      closeInvoiceModal(); // إغلاق النموذج بعد الإرسال
+    };
+
+    const [isOpen, setIsOpen] = useState(false);
+    const closeModal = () => setIsOpen(false);
+    const openModalPay = () => setIsOpen(true);  
+    const handleFormSubmit = () => {
+      closeModal(); // إغلاق النموذج بعد الإرسال
+    };
 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -42,31 +58,33 @@ function CustomerDetails({id}){
     return<>
       {user ? (
         <div className="bg-gray-100 p-4 rounded-lg shadow-md text-right">
-          <p className='text-2xl m-2'><strong>اسم المشترك :</strong> {user.Name}</p>
+          <p className='text-xl m-1'><strong>اسم المشترك :</strong> {user.Name}</p>
           <div className="flex m-1">
-            <p className='text-center w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>سرعة الاشتراك:</strong> {user.SubscriptionSpeed}</p>
-            <p className='text-center w-1/2 border p-2 border-gray-300 rounded'><strong>العنوان:</strong> {user.location}</p>
+            <p className='text-center text-sm w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>سرعة الاشتراك:</strong> {user.SubscriptionSpeed}</p>
+            <p className='text-center text-sm w-1/2 border p-2 border-gray-300 rounded'><strong>العنوان:</strong> {user.location}</p>
           </div>
           <div className="flex m-1">
-            <p className='text-center w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>المرسل:</strong> {user.sender}</p>
-            <p className='text-center w-1/2 border p-2 border-gray-300 rounded'><strong>بيانات الاتصال:</strong> {user.Contact}</p>
+            <p className='text-center text-sm w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>المرسل:</strong> {user.sender}</p>
+            <p className='text-center text-sm w-1/2 border p-2 border-gray-300 rounded'><strong>بيانات الاتصال:</strong> {user.Contact}</p>
           </div>
           <div className="flex m-1">
-            <p className='text-center w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>اسم المستخدم:</strong> {user.UserName}</p>
-            <p className='text-center w-1/2 border p-2 border-gray-300 rounded'><strong>كلمة المرور:</strong> {user.Password}</p>
+            <p className='text-center text-sm w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>اسم المستخدم:</strong> {user.UserName}</p>
+            <p className='text-center text-sm w-1/2 border p-2 border-gray-300 rounded'><strong>كلمة المرور:</strong> {user.Password}</p>
           </div>
           <div className="flex m-1">
-            <p className='text-center w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>IP:</strong> {user.userIp}</p>
-            <p className='text-center w-1/2 border p-2 border-gray-300 rounded'><strong>الرسوم الشهرية:</strong> {user.MonthlyFee}</p>
+            <p className='text-center text-sm w-1/2 border border-gray-300 rounded p-2 ml-2'><strong> الرصيد</strong> {total}</p>
+            <p className='text-center text-sm w-1/2 border p-2 border-gray-300 rounded'><strong>الرسوم الشهرية:</strong> {user.MonthlyFee}</p>
           </div>
           <div className="flex m-1">
-            <button className='text-center w-1/2 border border-gray-300 rounded p-2 ml-2 bg-green-500 text-white'>اضافة دفعة</button>
-            <button className='text-center w-1/2 border p-2 border-gray-300 rounded bg-red-500 text-white'>اضافة فاتورة</button>
+            <button onClick={openModalPay} className='text-center text-sm w-1/2 border border-gray-300 rounded p-2 ml-2 bg-green-500 text-white'>اضافة دفعة</button>
+            <button onClick={openInvoiceModal} className='text-center text-sm w-1/2 border p-2 border-gray-300 rounded bg-red-500 text-white'>اضافة فاتورة</button>
           </div>
         </div>
       ) : (
         <p>لا توجد بيانات لعرضها.</p>
       )}
+      <PaymentsForm SubscriberID={id} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
+      <InvoiceForm SubscriberID={id} invoiceIsOpen={invoiceIsOpen} onClose={closeInvoiceModal} onSubmit={handleInvoiceSubmit} />
     </>
 }
 

@@ -38,6 +38,7 @@ body {
   min-height: 100vh;
   height: 100vh;
   width: 100vw;
+  
 }
 
 h1 {
@@ -83,4 +84,19 @@ button:focus-visible {
 
 .scrollbar-hide::-webkit-scrollbar{
   display: none;
+}
+
+
+
+/*custom css style*/
+tbody tr:nth-child(even){
+  background-color: #efefef;
+}
+thead tr{
+  border-bottom: 3px solid #9a9a9a;
+  box-shadow: 0px 0px 2px #9a9a9a;
+  
+}
+td{
+  border: 1px solid #ababab;
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { database } from '../firebaseConfig';
 import { ref, get, query, orderByChild, equalTo } from "firebase/database";
 
-const CustomerInvoice = ({ subscriberID }) => {
+const CustomerInvoice = ({ subscriberID, setInvoicesVal }) => {
 
     async function getPaymentsBySubscriber(subscriberID) {
         try {
@@ -25,6 +25,12 @@ const CustomerInvoice = ({ subscriberID }) => {
       
     const [payments, setPayments] = useState([]);
 
+    var sum = 0;
+    payments.map(val =>{
+      sum -= Number(val.Amount)
+    })
+    setInvoicesVal(Number(sum))
+
     useEffect(() => {
         async function fetchPayments() {
           const data = await getPaymentsBySubscriber(subscriberID);
@@ -36,27 +42,28 @@ const CustomerInvoice = ({ subscriberID }) => {
 
   return (
     <div className="mt-1 overflow-y-scroll scrollbar-hide">
-      <table className="w-full text-center">
-        <thead>
+      <table className="w-full border-collapse text-center">
+      <thead className="bg-gray-100">
             <tr>
-                <td>القيمة</td>
-                <td>تاريخ الاستحقاق</td>
-                <td>حالة الدفع</td>
+                <td className="p-1">القيمة</td>
+                <td className="p-1">تاريخ الاستحقاق</td>
+                <td className="p-1">حالة الدفع</td>
             </tr>
         </thead>
         <tbody>
             {payments.length > 0 ? (
-                payments.map((payment, index) => (
-                    <tr 
-                    key={index}>
-                        <td>
-                            {payment.Amount}
+                payments.map((invoice, index) => (
+                  <tr className="hover:bg-gray-200"
+                  key={index}>
+                        <td className="p-1 invoiceValue">
+                            {invoice.Amount
+                            }
                         </td>           
-                        <td>
-                            {payment.DueDate}
+                        <td className="p-1">
+                            {invoice.DueDate}
                         </td>           
-                        <td>
-                            {payment.Status}
+                        <td className="p-1">
+                            {invoice.Details}
                         </td>           
                 </tr>
               ))

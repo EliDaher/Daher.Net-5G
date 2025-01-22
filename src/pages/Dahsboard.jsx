@@ -3,19 +3,12 @@ import UsersList from "../component/UsersList";
 import PopupForm from "../component/PopupForm";
 
 function Dashboard() {
-  // حالة التحكم بظهور النموذج
+
   const [isOpen, setIsOpen] = useState(false);
-
-  // دالة إغلاق النموذج
   const closeModal = () => setIsOpen(false);
-
-  // دالة فتح النموذج
   const openModal = () => setIsOpen(true);
 
-  // دالة معالجة إرسال النموذج
   const handleFormSubmit = () => {
-    console.log("Form submitted!");
-
     closeModal(); // إغلاق النموذج بعد الإرسال
   };
 

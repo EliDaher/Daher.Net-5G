@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { database } from '../firebaseConfig';
 import { ref, get, query, orderByChild, equalTo } from "firebase/database";
 
-const CustomerPayments = ({ subscriberID }) => {
+const CustomerPayments = ({ subscriberID, setPaymentsVal }) => {
 
     async function getPaymentsBySubscriber(subscriberID) {
         try {
@@ -24,6 +24,11 @@ const CustomerPayments = ({ subscriberID }) => {
       }
       
     const [payments, setPayments] = useState([]);
+    var sum = 0;
+    payments.map(val =>{
+      sum += Number(val.Amount)
+    })
+    setPaymentsVal(Number(sum))
 
     useEffect(() => {
         async function fetchPayments() {
@@ -35,28 +40,29 @@ const CustomerPayments = ({ subscriberID }) => {
     }, [subscriberID]);
 
   return (
-    <div className="mt-1 overflow-y-scroll scrollbar-hide">
-      <table className="w-full text-center">
-        <thead>
+    <>
+    <div className="mt-1 overflow-y-scroll scrollbar-hide max-h-28 border rounded-sm">
+      <table className="w-full border-collapse text-center">
+        <thead className="bg-gray-100">
             <tr>
-                <td>القيمة</td>
-                <td>تاريخ الدفعة</td>
-                <td>طريقة الدفع</td>
+                <td className="p-1">القيمة</td>
+                <td className="p-1">تاريخ الدفعة</td>
+                <td className="p-1">طريقة الدفع</td>
             </tr>
         </thead>
         <tbody>
             {payments.length > 0 ? (
                 payments.map((payment, index) => (
-                    <tr 
+                    <tr className="hover:bg-gray-200"
                     key={index}>
-                        <td>
+                        <td className="p-1 paymentValue">
                             {payment.Amount}
                         </td>           
-                        <td>
+                        <td className="p-1">
                             {payment.Date}
                         </td>           
-                        <td>
-                            {payment.Method}
+                        <td className="p-1">
+                            {payment.Details}
                         </td>           
                 </tr>
               ))
@@ -70,6 +76,7 @@ const CustomerPayments = ({ subscriberID }) => {
         </tbody>
       </table>
     </div>
+    </>
   );
 };
 
