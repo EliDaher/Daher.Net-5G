@@ -48,7 +48,7 @@ function PopupForm({ isOpen, onClose, onSubmit }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30">
       <div className="bg-white rounded-lg shadow-lg p-6 w-96 relative rtl">
         <button
           className="absolute top-2 left-2 text-gray-500 hover:text-gray-800"
