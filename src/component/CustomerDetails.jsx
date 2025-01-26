@@ -57,8 +57,8 @@ function CustomerDetails({id, total}){
 
     return<>
       {user ? (
-        <div className="bg-gray-100 p-4 rounded-lg shadow-md text-right">
-          <p className='text-xl m-1'><strong>اسم المشترك :</strong> {user.Name}</p>
+        <div className="bg-gray-100 p-4 rounded-lg shadow-md text-right dark:bg-stone-700">
+          <p className='text-lg m-1'><strong>اسم المشترك :</strong> {user.Name}</p>
           <div className="flex m-1">
             <p className='text-center text-sm w-1/2 border border-gray-300 rounded p-2 ml-2'><strong>سرعة الاشتراك:</strong> {user.SubscriptionSpeed}</p>
             <p className='text-center text-sm w-1/2 border p-2 border-gray-300 rounded'><strong>العنوان:</strong> {user.location}</p>

@@ -9,7 +9,7 @@ function Navbutton({ buttonText, linkDirectory }) {
 
   return (
     <div
-      className={`mt-2 rounded-l-full w-56 ml-auto hover:bg-white text-center transition-all duration-700 ${
+      className={`mt-2 w-100 ml-auto hover:bg-white text-center transition-all duration-700 ${
         isActive ? "bg-white text-primary" : "bg-primary text-white"
       }`}
     >

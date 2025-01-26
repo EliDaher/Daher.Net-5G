@@ -41,19 +41,19 @@ const CustomerPayments = ({ subscriberID, setPaymentsVal }) => {
 
   return (
     <>
-    <div className="mt-1 overflow-y-scroll scrollbar-hide max-h-28 border rounded-sm">
+    <div className="mt-1 overflow-y-scroll scrollbar-hide max-h-36 border rounded-sm">
       <table className="w-full border-collapse text-center">
-        <thead className="bg-gray-100">
+        <thead className="bg-gray-100 dark:bg-stone-900 sticky top-0">
             <tr>
                 <td className="p-1">القيمة</td>
                 <td className="p-1">تاريخ الدفعة</td>
-                <td className="p-1">طريقة الدفع</td>
+                <td className="p-1">التفاصيل</td>
             </tr>
         </thead>
         <tbody>
             {payments.length > 0 ? (
                 payments.map((payment, index) => (
-                    <tr className="hover:bg-gray-200"
+                    <tr className="hover:bg-gray-200 even:bg-stone-200  dark:even:bg-stone-600 dark:hover:bg-stone-500"
                     key={index}>
                         <td className="p-1 paymentValue">
                             {payment.Amount}

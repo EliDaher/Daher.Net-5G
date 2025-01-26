@@ -20,7 +20,6 @@ const UsersList = () => {
           // Convert the object to an array for easier mapping
           const usersList = Object.keys(data).map(key => ({ id: key, ...data[key] }));
           setUsers(usersList);
-          console.log(usersList)
         } else {
           console.log("No data available");
         }
@@ -43,10 +42,10 @@ const UsersList = () => {
   }
 
   return (
-    <div className='p-4 overflow-y-auto h-screen scrollbar-hide w-54'>
+    <div className='p-4 overflow-y-auto h-screen scrollbar-hide w-full'>
       <ul className='flex flex-wrap gap-6'>
         {users.map((user, index) => (
-          <Link to={`/subscriber/${user.id}`} className="flex flex-col select-none">
+          <Link to={`/subscriber/${user.id}`} className="flex flex-col select-none" key={index}>
             <li 
               key={user.SubscriberID} 
               dir="rtl"
