@@ -43,7 +43,7 @@ const CustomerInvoice = ({ subscriberID, setInvoicesVal }) => {
   return (
     <div className="mt-1 overflow-y-scroll scrollbar-hide max-h-36 border rounded-sm">
       <table className="w-full border-collapse text-center">
-        <thead className="bg-gray-100 dark:bg-stone-900 sticky top-0">
+        <thead className="bg-gray-100 dark:bg-stone-900 sticky top-0 -z-30">
             <tr>
                 <td className="p-1">القيمة</td>
                 <td className="p-1">تاريخ الاستحقاق</td>
