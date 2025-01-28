@@ -1,5 +1,6 @@
 import React, { useState } from "react"
-import Dashboard from "./pages/Dahsboard"
+import Dashboard from "./pages/Dashboard"
+import Customers from "./pages/Customers"
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from "./component/Navbar";
 import Invoice from "./pages/Invoice";
@@ -11,7 +12,7 @@ function App() {
 
   return (
     <>
-     <Router basename="/Daher.Net-5G">
+     <Router basename="/Daher.Net-5G/">
      <div className="text-white flex items-center justify-between w-full bg-primary h-12">
       <h1 className="ml-5 text-3xl font-bold">Daher.Net</h1>
       <button className="p-3 pb-1 bg-primary" onClick={() => setOpenNav(!openNav)}><span className="material-symbols-outlined">menu</span></button>
@@ -20,7 +21,8 @@ function App() {
       <Navbar setOpenNav={setOpenNav} openNav={openNav} />
         <Routes>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/invoice" element={<Invoice />} />
+          <Route path="/Customers" element={<Customers />} />
+          <Route path="/Invoice" element={<Invoice />} />
           <Route path="/subscriber/:id" element={<UserPage />} />
         </Routes>
 

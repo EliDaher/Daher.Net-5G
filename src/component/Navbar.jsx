@@ -14,8 +14,9 @@ function Navbar({setOpenNav, openNav}){
                 <h1 className="mt-6 text-center text-white font-bold text-4xl select-none">Daher.Net</h1>
             </div>
         
-            <Navbutton buttonText={"Dashboard"} linkDirectory={""}></Navbutton>            
-            <Navbutton buttonText={"Invoice"} linkDirectory={"Invoice"}></Navbutton>
+            <Navbutton buttonText={"Dashboard"} linkDirectory={""} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
+            <Navbutton buttonText={"Customers"} linkDirectory={"Customers"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
+            <Navbutton buttonText={"Invoice"} linkDirectory={"Invoice"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
 
         </div>
     </>
