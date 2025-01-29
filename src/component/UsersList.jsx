@@ -3,6 +3,7 @@ import { ref, get, child } from "firebase/database";
 import { database } from '../firebaseConfig';
 import UserCard from "../component/UserCard";
 import { Link } from 'react-router-dom';
+import Loading from './Loading';
 
 const UsersList = () => {
   const [users, setUsers] = useState([]);
@@ -34,7 +35,7 @@ const UsersList = () => {
   }, []); // Empty dependency array ensures this effect runs once when component mounts
 
   if (loading) {
-    return <div className='m-6'>Loading...</div>;
+    return <Loading/>;
   }
 
   if (error) {

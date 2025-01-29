@@ -21,11 +21,12 @@ const PieChartExample = ({dataSet}) => {
             data={dataSet}
             cx="50%"
             cy="50%"
+            cornerRadius={5}
             innerRadius={40}
             outerRadius={80}
             label={({ speed, value }) => `${speed}: ${value / speed}`}
           />
-          <Tooltip />
+          <Tooltip/>
         </PieChart>
       </ResponsiveContainer>
       <h1 className='absolute bottom-4 w-full text-center font-bold text-secondary'>Total : <strong className='text-primary'>{getTotalSpeed()}</strong>M</h1>
