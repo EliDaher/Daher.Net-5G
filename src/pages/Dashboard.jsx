@@ -90,10 +90,10 @@ function Dashboard() {
   return (
     <>
       <div className="flex flex-wrap w-screen items-center justify-around gap-7 md:gap-5 sm:gap-2 m-3">
-        <div className='w-full md:w-2/5 p-3 shadow-md rounded-2xl'>
+        <div className='w-full md:w-2/5 p-3 shadow-[0px_0px_10px_#999] rounded-2xl'>
           <BarChartComponent data={users}></BarChartComponent>
         </div>  
-        <div className='w-full md:w-2/5 p-3 shadow-md rounded-2xl'>
+        <div className='w-full md:w-2/5 p-3 shadow-[0px_0px_10px_#999] rounded-2xl'>
           <PieChartExample dataSet={speeds}></PieChartExample>
         </div>
       </div>

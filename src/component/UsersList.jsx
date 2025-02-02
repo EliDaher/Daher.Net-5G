@@ -44,13 +44,13 @@ const UsersList = () => {
 
   return (
     <div className='p-4 overflow-y-auto h-screen scrollbar-hide w-full'>
-      <ul className='flex flex-wrap gap-6'>
+      <ul className='flex flex-wrap gap-6 items-center justify-center'>
         {users.map((user, index) => (
           <Link to={`/subscriber/${user.id}`} className="flex flex-col select-none" key={index}>
             <li 
               key={user.SubscriberID} 
               dir="rtl"
-              className="text-right bg-gray-200 flex flex-col flex-1 p-4 rounded-2xl hover:shadow-hlw shadow-lw shadow-primary900 transition-all"
+              className="text-right bg-background-100 flex flex-col flex-1 p-4 rounded-2xl hover:shadow-[0px_0px_14px] hover:shadow-background-500 shadow-[0px_0px_8px] shadow-background-500 transition-all border border-primary-600 opacity-80"
             >
               <UserCard 
                 userName={user.Name} 

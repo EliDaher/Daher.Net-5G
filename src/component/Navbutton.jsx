@@ -9,8 +9,8 @@ function Navbutton({ buttonText, linkDirectory, openNav, setOpenNav }) {
 
   return (
     <div
-      className={`mt-2 w-100 ml-auto hover:bg-white text-center transition-all duration-700 ${
-        isActive ? "bg-white text-primary" : "bg-primary text-white"
+      className={`mt-2 w-100 ml-auto hover:bg-primary-500 text-center transition-all duration-700 ${
+        isActive ? "bg-primary-500 text-white" : "text-white"
       }`}
       onClick={() => setOpenNav(!openNav)}
     >
