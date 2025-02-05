@@ -110,5 +110,4 @@ function CustomerDetails({id, total}){
         </>
     );
 }
-
 export default CustomerDetails;
