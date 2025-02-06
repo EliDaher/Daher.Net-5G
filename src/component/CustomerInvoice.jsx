@@ -60,7 +60,7 @@ const CustomerInvoice = ({ subscriberID, setInvoicesVal }) => {
                             }
                         </td>           
                         <td className="p-1">
-                            {invoice.DueDate}
+                            {invoice.Date}
                         </td>           
                         <td className="p-1">
                             {invoice.Details}

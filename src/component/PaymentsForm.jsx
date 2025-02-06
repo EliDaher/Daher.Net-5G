@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { ref, set, push, get } from "firebase/database";
 import { database } from '../firebaseConfig';
 
 function PaymentsForm({ isOpen, onClose, onSubmit, SubscriberID}) {
   if (!isOpen) return null;
-  const today = new Date().toISOString().split('T')[0];
+  const [today,setToday] = useState(new Date().toISOString().split('T')[0]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -79,10 +79,11 @@ function PaymentsForm({ isOpen, onClose, onSubmit, SubscriberID}) {
               تاريخ الدفع
             </label>
             <input
-                tabIndex={2}
+              tabIndex={2}
               type="Date"
               id="Date"
               required
+              onChange={(e) => {setToday(e.target.value)}}
               value={today}
               className="focus:outline-primary mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
