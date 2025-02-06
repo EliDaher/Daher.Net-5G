@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-     <Router basename="/Daher.Net-5G">
+     <Router basename="/Daher.Net-5G/">
      <div className="text-white flex items-center justify-between w-full bg-primary-950 h-12">
       <h1 className="ml-5 text-3xl font-bold font-Pacifico">Daher.Net</h1>
       <button className="p-3 pb-1 bg-transparent" onClick={() => setOpenNav(!openNav)}><span className="material-symbols-outlined">menu</span></button>
