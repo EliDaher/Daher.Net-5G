@@ -27,9 +27,9 @@ const BarChartComponent = ({data}) => {
           barSize={30}
         >
           <XAxis dataKey="sender" scale="point" padding={{ left: 20, right: 20 }} />
-          <YAxis />
+          <YAxis/>
           <Tooltip />
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="4 4" />
           <Bar dataKey="congestion" className='fill-primary-400 stroke-primary-400' background={{ fill: '#eee' }} />
         </BarChart>
       </ResponsiveContainer>
