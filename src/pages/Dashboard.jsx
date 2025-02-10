@@ -80,7 +80,7 @@ function Dashboard() {
   }, []); // Empty dependency array ensures this effect runs once when component mounts
   
   if (loading) {
-    return <Loading/>;
+    return <Loading type={"any"}/>;
   }
   
   if (error) {
