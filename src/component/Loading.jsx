@@ -13,7 +13,7 @@ function Loading({type}){
     </>}
     else if(type == "table"){
         return <div className="shadow p-3 m-1 border rounded-lg animate-pulse">
-        <h2 className="text-center w-full font-bold text-text-900 my-2">فواتير انترنت</h2>
+        <h2 className="text-center w-full font-bold text-text-900 my-2">loading....</h2>
         <div className="w-full overflow-scroll h-52">
             <table className="w-full border-collapse border border-gray-300">
                 <thead>

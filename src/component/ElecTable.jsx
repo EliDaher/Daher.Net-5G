@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 
-export default function InternetInvoiceTable({ searchText, work, setWork }) {
+export default function ElecTable({ searchText, work, setWork }) {
     const [invoicesData, setInvoicesData] = useState([]);
     const [originalRows, setOriginalRows] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -32,11 +32,11 @@ export default function InternetInvoiceTable({ searchText, work, setWork }) {
         setError(null);
 
         try {
-            const response = await axios.post("https://server-xwsx.onrender.com/internetSearch", searchText );
+            const response = await axios.post("https://server-xwsx.onrender.com/elecSearch", searchText );
 
-            if (response.data.matchingRows?.length > 0) {
+            if (response.data.elecMatchingRows?.length > 0) {
                 setOriginalRows(response.data.originalRows);
-                setInvoicesData(response.data.matchingRows);
+                setInvoicesData(response.data.elecMatchingRows);
             } else {
                 console.log("No matching rows found.");
                 setInvoicesData([]);
@@ -91,7 +91,7 @@ export default function InternetInvoiceTable({ searchText, work, setWork }) {
     return (
         <div className="shadow-lg p-4 m-3 border rounded-xl bg-white">
             <h2 className="text-center font-bold text-gray-900 text-xl my-4">
-                فواتير الإنترنت
+                فواتير كهرباء
             </h2>
 
             <div className="w-full overflow-auto max-h-96 rounded-lg border border-gray-300">

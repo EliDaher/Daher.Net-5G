@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import InternetInvoiceTable from "../component/InternetInvoiceTable"
+import ElecTable from "../component/ElecTable";
 
 
 function Invoice(){
@@ -27,6 +28,7 @@ function Invoice(){
                 >بحث</button>
             </div>
             <InternetInvoiceTable searchText={searchText} work={work} setWork={setWork}></InternetInvoiceTable>
+            <ElecTable searchText={searchText} work={work} setWork={setWork}></ElecTable>
         </div>
     </>
 }
