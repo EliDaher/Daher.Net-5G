@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 
-export default function InternetInvoiceTable({ searchText, work, setWork }) {
+export default function InternetInvoiceTable({ searchText, work, setWork, internetTotal, setInternetTotal }) {
     const [invoicesData, setInvoicesData] = useState([]);
     const [originalRows, setOriginalRows] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const timeElapsed = Date.now();
     const nowDate = new Date(timeElapsed);
+    
 
     const [thArr, setThArr] = useState([
         "11/24",
@@ -89,30 +90,36 @@ export default function InternetInvoiceTable({ searchText, work, setWork }) {
     if (error) return <div className="m-6 w-full text-red-500">{error}</div>;
 
     return (
-        <div className="shadow-lg p-4 m-3 border rounded-xl bg-white">
-            <h2 className="text-center font-bold text-gray-900 text-xl my-4">
-                فواتير الإنترنت
-            </h2>
+        <div className="shadow-lg p-4 m-3 border rounded-xl bg-white" dir="rtl">
+
+            <div className="flex justify-between items-center">
+                <h2 className="text-center font-bold text-gray-900 text-xl my-4">
+                    فواتير الإنترنت
+                </h2>
+                <div>
+                    <p className="font-bold text-text-950 p-2 rounded-lg shadow shadow-primary-400">انترنت {internetTotal}</p>
+                </div>
+            </div>
 
             <div className="w-full overflow-auto max-h-96 rounded-lg border border-gray-300">
                 {invoicesData.length > 0 ? (
                     <table className="w-full text-sm border-collapse">
                         <thead className="bg-gray-800 text-white text-center">
-                            <tr className="">
-                                <th className="border border-gray-600 px-2 py-3">رقم الفاتورة</th>
-                                <th className="border border-gray-600 px-4 py-3">رقم الهاتف</th>
-                                <th className="border border-gray-600 px-4 py-3">اسم المشترك</th>
-                                <th className="border border-gray-600 px-4 py-3">الشركة</th>
-                                <th className="border border-gray-600 px-4 py-3">السرعة</th>
-                                <th className="border border-gray-600 px-4 py-3">تاريخ التسديد</th>
-                                <th className="border border-gray-600 px-4 py-3">الفاتورة الشهرية</th>
-                                <th className="border border-gray-600 px-4 py-3">ملاحظات</th>
+                        <tr className="max-h-2 leading-none border-xl border-primary-800">
+                                <th className="border border-gray-600 px-2 py-2">رقم الفاتورة</th>
+                                <th className="border border-gray-600 px-4 py-2">رقم الهاتف</th>
+                                <th className="border border-gray-600 px-4 py-2">اسم المشترك</th>
+                                <th className="border border-gray-600 px-4 py-2">الشركة</th>
+                                <th className="border border-gray-600 px-4 py-2">السرعة</th>
+                                <th className="border border-gray-600 px-4 py-2">تاريخ التسديد</th>
+                                <th className="border border-gray-600 px-4 py-2">الفاتورة الشهرية</th>
+                                <th className="border border-gray-600 px-4 py-2">ملاحظات</th>
 
                                 {thArr.map(thText =>{
                                     return(<>
-                                        <th className="border border-gray-600 px-4 py-3"></th>
-                                        <th className="border border-gray-600 px-4 py-3">{thText}</th>
-                                        <th className="border border-gray-600 px-4 py-3"></th>
+                                        <th className="border border-gray-600 px-4 py-2">{thText}</th>
+                                        <th className="border border-gray-600 px-4 py-2">{thText}</th>
+                                        <th className="border border-gray-600 px-4 py-2"></th>
                                     </>
                                     )
                                 })}
@@ -126,7 +133,7 @@ export default function InternetInvoiceTable({ searchText, work, setWork }) {
                                 return (
                                     <tr
                                         key={index}
-                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100"
+                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(3n+11)>*]:w-7 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100"
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (
@@ -151,11 +158,24 @@ export default function InternetInvoiceTable({ searchText, work, setWork }) {
                                                            updateInternet(updateRow,updateCol,updateVal)
                                                         }
                                                     }
-                                                    onKeyDown={(e)=>{
-                                                        if (e.ctrlKey && e.key === ";" || e.ctrlKey && e.key === "ك") {
-                                                            e.currentTarget.value = nowDate.toLocaleDateString('en-US')
+                                                    onKeyDown={(e) => {
+                                                        if ((e.ctrlKey && e.key === ";") || (e.ctrlKey && e.key === "ك")) {
+                                                          e.preventDefault(); // منع السلوك الافتراضي
+                                                          const newDate = nowDate.toLocaleDateString("en-US");
+    
+                                                          // تحديث القيمة مباشرة
+                                                          const updatedInvoices = [...invoicesData];
+                                                          if (updatedInvoices[index] && newDate != e.target.value) {
+                                                            const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                            updatedInvoices[index] = {
+                                                              ...updatedInvoices[index],
+                                                              [key]: newDate
+                                                            };
+                                                            setInvoicesData(updatedInvoices);
+                                                            setInternetTotal(Number(internetTotal) + Number(invoiceValues[cellIndex-1]))
+                                                          }
                                                         }
-                                                    }}
+                                                      }}
                                                     className="p-1 w-32 bg-transparent outline-none text-center"
                                                 />
                                             </td>
