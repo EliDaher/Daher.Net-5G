@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     const login = async (username) => {        
         try {
         usernames.map(employer => {
-          if(employer.name.includes(username)){ 
+          if(employer.name == username){ 
             setUser(usernames[usernames.indexOf(employer)])
             localStorage.setItem("user", JSON.stringify(employer)); // تخزين البيانات
           }
