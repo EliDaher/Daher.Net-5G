@@ -12,6 +12,10 @@ function Dashboard() {
     closeModal(); // إغلاق النموذج بعد الإرسال
   };
 
+  if (!user.role.includes("admin")) {
+    return <div className='mt-52 m-auto'>عذرا لا تملك صلاحية للدخول</div>;
+  }
+
   return (
     <>
       {/* قائمة المستخدمين */}

@@ -4,9 +4,11 @@ import { database } from '../firebaseConfig';
 import PieChartExample from '../component/PieChartExample';
 import BarChartComponent from '../component/BarChartComponent';
 import Loading from "../component/Loading"
+import { useAuth } from "../context/AuthContext";
+
 
 function Dashboard() {
-
+  const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [speeds, setSpeeds] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -87,6 +89,10 @@ function Dashboard() {
     return <div className='m-6'>{error}</div>;
   }
   
+  if (!user.role.includes("admin")) {
+    return <div className='mt-52 m-auto'>عذرا لا تملك صلاحية للدخول</div>;
+  }
+
   return (
     <>
       <div className="flex flex-wrap w-screen items-center justify-around gap-7 md:gap-5 sm:gap-2 m-3">

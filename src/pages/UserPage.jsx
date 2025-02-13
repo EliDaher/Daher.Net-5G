@@ -15,6 +15,10 @@ function UserPage() {
     setTotal(invoicesVal + paymentsVal);
   }, [invoicesVal, paymentsVal]);
 
+  if (!user.role.includes("admin")) {
+    return <div className='mt-52 m-auto'>عذرا لا تملك صلاحية للدخول</div>;
+  }
+
   return (
     <div dir="rtl" className="m-3 w-full">
       <h1 className="text-2xl font-bold mb-4 text-center">تفاصيل المشترك</h1>

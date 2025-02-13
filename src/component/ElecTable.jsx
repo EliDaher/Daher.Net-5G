@@ -58,7 +58,7 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
 
 
     
-    const updateInternet = (originalRow, colIndex, newValue) => {
+    const updateElec = (originalRow, colIndex, newValue) => {
         axios.post('https://server-xwsx.onrender.com/updateElec', {
             row: originalRow, // رقم الصف الأصلي
             col: colIndex, // رقم العمود
@@ -159,7 +159,7 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
                                                       const updateRow = originalRows[rowKey];
                                                       const updateCol = cellIndex;
                                                       const updateVal = e.target.value;
-                                                      updateInternet(updateRow, updateCol, updateVal);
+                                                      updateElec(updateRow, updateCol, updateVal);
                                                     }
                                                   }}
                                                   onKeyDown={(e) => {
