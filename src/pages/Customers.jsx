@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import UsersList from "../component/UsersList";
 import PopupForm from "../component/PopupForm";
+import { useAuth } from "../context/AuthContext";
+
 
 function Dashboard() {
 
+  const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => setIsOpen(false);
   const openModal = () => setIsOpen(true);
