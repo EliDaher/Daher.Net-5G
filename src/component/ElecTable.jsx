@@ -65,7 +65,7 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
             value: newValue // القيمة الجديدة
         })
         .then(response => {
-            console.log("Data updated successfully:", response.data);
+            //console.log("Data updated successfully:", response.data);
         })
         .catch(error => {
             console.error("Error updating data:", error);
@@ -102,12 +102,13 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
                 </div>
             </div>
 
+
             <div className="w-full overflow-auto max-h-96 rounded-lg border border-gray-300">
                 {invoicesData.length > 0 ? (
                     <table className="w-full text-sm border-collapse">
                         <thead className="bg-gray-800 text-white text-center">
                             <tr className="max-h-2 leading-none border-xl border-primary-800">
-                                <th className="border border-gray-600 px-2">رقم الفاتورة</th>
+                                <th className="border border-gray-600 px-1">#</th>
                                 <th className="border border-gray-600 px-2">نوع الفاتورة</th>
                                 <th className="border border-gray-600 px-2"></th>
                                 <th className="border border-gray-600 px-2">الرقم</th>
@@ -128,62 +129,96 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
                         <tbody>
                             {invoicesData.map((invoice, index) => {
                                 const invoiceValues = Object.values(invoice);
-                                const totalCells = 41;
+                                const totalCells = 60;
 
                                 return (
                                     <tr
                                         key={index}
-                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(6n-1)>*:nth-child(1)]:w-1 [&>*:nth-child(6n-1)>*>*]:w-20 [&>*:nth-child(6n-1)]:bg-primary-700 hover:bg-primary-100"
+                                        className="even:bg-gray-100 transition-all duration-200 
+                                        [&>*:nth-child(6n-1)>*:nth-child(1)>*]:w-1 [&>*:nth-child(1)>*>*]:w-10
+                                        [&>*:nth-child(6n-1)>*>*]:w-20 [&>*:nth-child(6n-1)]:bg-primary-700 
+                                        hover:bg-primary-100"
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (
                                             <td key={cellIndex} className="border border-gray-300">
-                                                <input
-                                                  type="text"
-                                                  value={invoiceValues[cellIndex] || ""}
-                                                  onChange={(e) => {
-                                                    const updatedInvoices = [...invoicesData];
+                                                <div className="flex">  
+                                                    <input
+                                                      type="text"
+                                                      value={invoiceValues[cellIndex] || ""}
+                                                      onChange={(e) => {
+                                                        const updatedInvoices = [...invoicesData];
 
-                                                    if (updatedInvoices[index]) {
-                                                      const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
-                                                      updatedInvoices[index] = {
-                                                        ...updatedInvoices[index],
-                                                        [key]: e.target.value
-                                                      };
-                                                      setInvoicesData(updatedInvoices);
-                                                    }
-                                                  }}
-                                                  onBlur={(e) => {
-                                                    const rowKey = e.target.closest("tr")?.getAttribute("data-key");
-                                                    if (rowKey !== null && rowKey !== undefined) {
-                                                      const updateRow = originalRows[rowKey];
-                                                      const updateCol = cellIndex;
-                                                      const updateVal = e.target.value;
-                                                      updateElec(updateRow, updateCol, updateVal);
-                                                    }
-                                                  }}
-                                                  onKeyDown={(e) => {
-                                                    if ((e.ctrlKey && e.key === ";") || (e.ctrlKey && e.key === "ك")) {
-                                                      e.preventDefault(); // منع السلوك الافتراضي
-                                                      const newDate = nowDate.toLocaleDateString("en-US");
+                                                        if (updatedInvoices[index]) {
+                                                          const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                          updatedInvoices[index] = {
+                                                            ...updatedInvoices[index],
+                                                            [key]: e.target.value
+                                                          };
+                                                          setInvoicesData(updatedInvoices);
+                                                        }
+                                                      }}
+                                                      className="p-1 w-24 bg-transparent outline-none text-center"
+                                                    />    
+                                                    <button 
+                                                        onClick={(e)=>{
+                                                            const newDate = nowDate.toLocaleDateString("en-US");
+                                                             
+                                                            // تحديث القيمة مباشرة
+                                                            const updatedInvoices = [...invoicesData];
+                                                            if(updatedInvoices[index][cellIndex] == newDate ){
+                                                                const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                                const key_1 = Object.keys(invoice)[cellIndex-1] || `field_${cellIndex-1}`;
+                                                                updatedInvoices[index] = {
+                                                                  ...updatedInvoices[index],
+                                                                  [key_1]: "",
+                                                                  [key]: ""
+                                                                };
+                                                                setInvoicesData(updatedInvoices);
+                                                                if(invoiceValues[1].includes("ارضي") && !isNaN(invoiceValues[cellIndex-1])){setPhoneTotal(Number(phoneTotal) - Number(invoiceValues[cellIndex-1]))}
+                                                                if(invoiceValues[1].includes("كهربا") && !isNaN(invoiceValues[cellIndex-1])){setElecTotal(Number(elecTotal) - Number(invoiceValues[cellIndex-1]))}
+                                                                if(invoiceValues[1].includes("ميا") && !isNaN(invoiceValues[cellIndex-1])){setWaterTotal(Number(waterTotal) - Number(invoiceValues[cellIndex-1]))}
+                                                                const rowKey = e.target.closest("tr")?.getAttribute("data-key");
+                                                                if (rowKey !== null && rowKey !== undefined) {
+                                                                  const updateRow = originalRows[rowKey];
+                                                                  var updateCol = cellIndex;
+                                                                  var updateVal = "";
+                                                                  updateElec(updateRow, updateCol, updateVal);
+                                                                  updateCol = cellIndex-1;
+                                                                  updateVal = "";
+                                                                  updateElec(updateRow, updateCol, updateVal);
+                                                                }
+                                                            }
+                                                            else {
+                                                              const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                              const key_1 = Object.keys(invoice)[cellIndex-1] || `field_${cellIndex-1}`;
+                                                              const invValue = (invoice)[cellIndex-2];
+                                                              updatedInvoices[index] = {
+                                                                ...updatedInvoices[index],
+                                                                [key_1]: invValue,
+                                                                [key]: newDate
+                                                              };
+                                                              setInvoicesData(updatedInvoices);
+                                                              if(invoiceValues[1].includes("ارضي") && !isNaN(invoiceValues[cellIndex-1])){setPhoneTotal(Number(phoneTotal) + Number(invValue))}
+                                                              if(invoiceValues[1].includes("كهربا") && !isNaN(invoiceValues[cellIndex-1])){setElecTotal(Number(elecTotal) + Number(invValue))}
+                                                              if(invoiceValues[1].includes("ميا") && !isNaN(invoiceValues[cellIndex-1])){setWaterTotal(Number(waterTotal) + Number(invValue))}
+                                                                const rowKey = e.target.closest("tr")?.getAttribute("data-key");
+                                                                if (rowKey !== null && rowKey !== undefined) {
+                                                                  const updateRow = originalRows[rowKey];
+                                                                  var updateCol = cellIndex;
+                                                                  var updateVal = newDate;
+                                                                  updateElec(updateRow, updateCol, updateVal);
+                                                                  updateCol = cellIndex-1;
+                                                                  updateVal = invValue;
+                                                                  updateElec(updateRow, updateCol, updateVal);
+                                                                }
+                                                            }
 
-                                                      // تحديث القيمة مباشرة
-                                                      const updatedInvoices = [...invoicesData];
-                                                      if (updatedInvoices[index] && newDate != e.target.value) {
-                                                        const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
-                                                        updatedInvoices[index] = {
-                                                          ...updatedInvoices[index],
-                                                          [key]: newDate
-                                                        };
-                                                        setInvoicesData(updatedInvoices);
-                                                        if(invoiceValues[1].includes("ارضي") && !isNaN(invoiceValues[cellIndex-1])){setPhoneTotal(Number(phoneTotal) + Number(invoiceValues[cellIndex-1]))}
-                                                        if(invoiceValues[1].includes("كهربا") && !isNaN(invoiceValues[cellIndex-1])){setElecTotal(Number(elecTotal) + Number(invoiceValues[cellIndex-1]))}
-                                                        if(invoiceValues[1].includes("ميا") && !isNaN(invoiceValues[cellIndex-1])){setWaterTotal(Number(waterTotal) + Number(invoiceValues[cellIndex-1]))}
-                                                      }
-                                                    }
-                                                  }}
-                                                  className="p-1 w-24 bg-transparent outline-none text-center"
-                                                />
+                                                        }}
+                                                        className={`hover:bg-accent-600 w-4 ${cellIndex % 6 === 2 && cellIndex > 4 ? 'bg-accent-400' : 'hidden'} ${(invoice)[cellIndex-1] ? 'bg-red-400 hover:bg-red-600' : ''}`}>
+                                                        +
+                                                    </button>
+                                                </div>
 
                                             </td>
                                         ))}

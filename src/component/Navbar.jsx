@@ -30,7 +30,7 @@ function Navbar({setOpenNav, openNav}){
                 <Navbutton buttonText={"Invoice"} linkDirectory={"Invoice"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
             </div>
             
-            <div onClick={()=> logout()} className="w-20 text-center p-1 px-2 shadow shadow-text-100 absolute bottom-2 left-1/3 font-bold text-text-100 rounded-lg">
+            <div onClick={()=> logout()} className="w-20 text-center p-1 px-2 border border-primary-800 shadow shadow-primary-900 absolute bottom-2 left-1/3 font-bold text-text-100 rounded-lg hover:bg-primary-800">
                 <Link to={"/login"}>
                     Logout
                 </Link>

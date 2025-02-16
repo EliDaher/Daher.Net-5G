@@ -66,7 +66,7 @@ export default function InternetInvoiceTable({ searchText, work, setWork, intern
             value: newValue // القيمة الجديدة
         })
         .then(response => {
-            console.log("Data updated successfully:", response.data);
+            //console.log("Data updated successfully:", response.data);
         })
         .catch(error => {
             console.error("Error updating data:", error);
@@ -133,51 +133,80 @@ export default function InternetInvoiceTable({ searchText, work, setWork, intern
                                 return (
                                     <tr
                                         key={index}
-                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(3n+11)>*]:w-7 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100"
+                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(3n+11)>*>*]:w-7 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100"
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (
                                             <td key={cellIndex} className="border border-gray-300">
-                                                <input
-                                                    type="text"
-                                                    value={invoiceValues[cellIndex] || ""}
-                                                    onChange={(e) => {
-                                                        const updatedInvoices = [...invoicesData];
-                                                        updatedInvoices[index] = {
-                                                            ...updatedInvoices[index],
-                                                            [Object.keys(invoice)[cellIndex] || `field_${cellIndex}`]: e.target.value
-                                                        };
-                                                        setInvoicesData(updatedInvoices);
-                                                    }}
-                                                    onBlur={
-                                                        (e) => {
-                                                           var updateRow = originalRows[e.target.parentElement.parentElement.getAttribute('data-key')]
-                                                           var updateCol = cellIndex
-                                                           var updateVal = e.target.value
-
-                                                           updateInternet(updateRow,updateCol,updateVal)
-                                                        }
-                                                    }
-                                                    onKeyDown={(e) => {
-                                                        if ((e.ctrlKey && e.key === ";") || (e.ctrlKey && e.key === "ك")) {
-                                                          e.preventDefault(); // منع السلوك الافتراضي
-                                                          const newDate = nowDate.toLocaleDateString("en-US");
-    
-                                                          // تحديث القيمة مباشرة
-                                                          const updatedInvoices = [...invoicesData];
-                                                          if (updatedInvoices[index] && newDate != e.target.value) {
-                                                            const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                <div className="flex">
+                                                    <input
+                                                        type="text"
+                                                        value={invoiceValues[cellIndex] || ""}
+                                                        onChange={(e) => {
+                                                            const updatedInvoices = [...invoicesData];
                                                             updatedInvoices[index] = {
-                                                              ...updatedInvoices[index],
-                                                              [key]: newDate
-                                                            };
-                                                            setInvoicesData(updatedInvoices);
-                                                            setInternetTotal(Number(internetTotal) + Number(invoiceValues[cellIndex-1]))
-                                                          }
-                                                        }
-                                                      }}
-                                                    className="p-1 w-32 bg-transparent outline-none text-center"
-                                                />
+                                                                    ...updatedInvoices[index],
+                                                                    [Object.keys(invoice)[cellIndex] || `field_${cellIndex}`]: e.target.value
+                                                                };
+                                                                setInvoicesData(updatedInvoices);
+                                                            }}
+                                                        className="p-1 w-32 bg-transparent outline-none text-center"
+                                                    />
+                                                    <button 
+                                                        onClick={(e)=>{
+                                                            const newDate = nowDate.toLocaleDateString("en-US");
+                                                             
+                                                            // تحديث القيمة مباشرة
+                                                            const updatedInvoices = [...invoicesData];
+                                                            if(updatedInvoices[index][cellIndex] == newDate ){
+                                                                const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                                const key_1 = Object.keys(invoice)[cellIndex-1] || `field_${cellIndex-1}`;
+                                                                updatedInvoices[index] = {
+                                                                  ...updatedInvoices[index],
+                                                                  [key_1]: "",
+                                                                  [key]: ""
+                                                                };
+                                                                setInvoicesData(updatedInvoices);
+                                                                if(!isNaN(invoiceValues[cellIndex-1])){setInternetTotal(Number(internetTotal) -  Number(invoiceValues[cellIndex-1]))}
+                                                                const rowKey = e.target.closest("tr")?.getAttribute("data-key");
+                                                                if (rowKey !== null && rowKey !== undefined) {
+                                                                  const updateRow = originalRows[rowKey];
+                                                                  var updateCol = cellIndex;
+                                                                  var updateVal = "";
+                                                                  updateInternet(updateRow, updateCol, updateVal);
+                                                                  updateCol = cellIndex-1;
+                                                                  updateVal = "";
+                                                                  updateInternet(updateRow, updateCol, updateVal);
+                                                                }
+                                                            }
+                                                            else {
+                                                              const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
+                                                              const key_1 = Object.keys(invoice)[cellIndex-1] || `field_${cellIndex-1}`;
+                                                              const invValue = (invoice)[6];
+                                                              updatedInvoices[index] = {
+                                                                ...updatedInvoices[index],
+                                                                [key_1]: invValue,
+                                                                [key]: newDate
+                                                              };
+                                                              setInvoicesData(updatedInvoices);
+                                                              if(!isNaN(invoiceValues[cellIndex-1])){setInternetTotal(Number(internetTotal) + Number(invValue))}
+                                                                const rowKey = e.target.closest("tr")?.getAttribute("data-key");
+                                                                if (rowKey !== null && rowKey !== undefined) {
+                                                                  const updateRow = originalRows[rowKey];
+                                                                  var updateCol = cellIndex;
+                                                                  var updateVal = newDate;
+                                                                  updateInternet(updateRow, updateCol, updateVal);
+                                                                  updateCol = cellIndex-1;
+                                                                  updateVal = invValue;
+                                                                  updateInternet(updateRow, updateCol, updateVal);
+                                                                }
+                                                            }
+
+                                                        }}
+                                                        className={`hover:bg-accent-600 w-4 ${Number(cellIndex + 1) % 3 === 1 && cellIndex > 7 ? 'bg-accent-400' : 'hidden'} ${(invoice)[cellIndex-1] ? 'bg-red-400 hover:bg-red-600' : ''}`}>
+                                                        +
+                                                    </button>
+                                                </div>
                                             </td>
                                         ))}
                                     </tr>
