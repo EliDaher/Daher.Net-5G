@@ -1,39 +1,70 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Loading from "../component/Loading";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const { login, user } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await login(email);
-    if (user.role == "admin"){
-      navigate("dashboard")
-    }else{
-      navigate("invoice")
+    setLoading(true);
+    setError(null); // مسح أي خطأ سابق
+
+    try {
+      const response = await axios.post("https://server-xwsx.onrender.com/UserLogin", {
+        username: email,
+        password: password
+      });
+
+      if (response.data.user) {
+        login(response.data.user);
+      } else {
+        throw new Error("بيانات تسجيل الدخول غير صحيحة");
+      }
+    } catch (err) {
+      console.error("خطأ في تسجيل الدخول:", err);
+      setError("خطأ في تسجيل الدخول، تحقق من البيانات");
+    } finally {
+      setLoading(false);
     }
   };
 
+  // التنقل بعد تحديث user
+  useEffect(() => {
+    if (user) {
+      navigate(user.role === "admin" ? "/dashboard" : "/invoice");
+    }
+  }, [user, navigate]);
+
   return (
     <div className="flex max-h-full items-center justify-center w-screen h-screen">
-      <div className="w-full max-w-md p-8 space-y-6 bg-background-800 shadow-[0px_0px_20px] shadow-primary-200 border border-primary-300 rounded-xl">
+      <div className="w-full max-w-md p-8 space-y-6 bg-background-800 shadow-lg border border-primary-300 rounded-xl">
         <h2 className="text-3xl font-bold text-text-100 text-center">Daher.Net</h2>
+        
+        {error && <p className="text-red-500 text-center">{error}</p>}
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-text-200 mb-1">Email</label>
             <input
               type="text"
-              className="w-full p-3 bg-background-700 text-text-100 border border-background-600 rounded-lg focus:ring-2 focus:ring-primary-400 focus:outline-none"
+              className="w-full p-3 bg-background-700
+              text-text-100 border border-background-600 
+              rounded-lg focus:ring-2 focus:ring-primary-400 
+              focus:outline-none"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
-          {/*<div className="hidden">
+          <div>
             <label className="block text-text-200 mb-1">Password</label>
             <input
               type="password"
@@ -42,12 +73,13 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </div>*/}
+          </div>
           <button
             type="submit"
-            className="w-full p-3 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-lg transition duration-300"
+            className={`w-full p-3 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-lg transition duration-300 ${loading ? "animate-pulse" : ""}`}
+            disabled={loading}
           >
-            Login
+            {loading ? "جاري تسجيل الدخول..." : "Login"}
           </button>
         </form>
       </div>

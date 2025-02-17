@@ -19,6 +19,7 @@ const UsersList = () => {
     const fetchUsersData = async () => {
       try {
         const dbRef = ref(database);
+
         const snapshot = await get(child(dbRef, 'Subscribers')); 
         if (snapshot.exists()) {
           const data = snapshot.val();

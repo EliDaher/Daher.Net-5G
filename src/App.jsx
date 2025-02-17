@@ -25,7 +25,7 @@ function App() {
         {/* Navbar */}
         <div className="text-white flex items-center justify-between w-full bg-primary-950 h-12">
           <h1 className="ml-5 text-3xl font-bold font-Pacifico">Daher.Net</h1>
-          <h5 className="text-xl opacity-30 select-none text-text-100">{user.name}</h5>
+          <h5 className="text-xl opacity-30 select-none text-text-100">{user.username}</h5>
           <button
             className="p-3 pb-1 bg-transparent"
             onClick={() => {
