@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 
-export default function InternetInvoiceTable({ searchText, work, setWork, internetTotal, setInternetTotal }) {
+export default function InternetInvoiceTable({ finalTable, setFinalTable, searchText, work, setWork, internetTotal, setInternetTotal }) {
     const [invoicesData, setInvoicesData] = useState([]);
     const [originalRows, setOriginalRows] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -22,7 +22,7 @@ export default function InternetInvoiceTable({ searchText, work, setWork, intern
         "6/25",
         "7/25",
         "8/25",
-        "9/25"
+        "9/25",
     ]);
 
 
@@ -115,8 +115,8 @@ export default function InternetInvoiceTable({ searchText, work, setWork, intern
                                 <th className="border border-gray-600 px-4 py-2">الفاتورة الشهرية</th>
                                 <th className="border border-gray-600 px-4 py-2">ملاحظات</th>
 
-                                {thArr.map(thText =>{
-                                    return(<>
+                                {thArr.map((thText, index) =>{
+                                        return(<>
                                         <th className="border border-gray-600 px-4 py-2">{thText}</th>
                                         <th className="border border-gray-600 px-4 py-2">{thText}</th>
                                         <th className="border border-gray-600 px-4 py-2"></th>
@@ -178,6 +178,22 @@ export default function InternetInvoiceTable({ searchText, work, setWork, intern
                                                                   updateVal = "";
                                                                   updateInternet(updateRow, updateCol, updateVal);
                                                                 }
+                                                                const deletedInvoice = {
+                                                                    customerName:(invoice)[2],
+                                                                    customerNumber:(invoice)[1],
+                                                                    customerDetails:(invoice)[3],
+                                                                    invoiceNumber:thArr[cellIndex/3-3],
+                                                                    invoiceValue:(invoice)[6],
+                                                                }
+                                                                setFinalTable(finalTable.filter(inv => 
+                                                                    !(
+                                                                        inv.customerName === deletedInvoice.customerName &&
+                                                                        inv.customerNumber === deletedInvoice.customerNumber &&
+                                                                        inv.customerDetails === deletedInvoice.customerDetails &&
+                                                                        inv.invoiceNumber === deletedInvoice.invoiceNumber &&
+                                                                        inv.invoiceValue === deletedInvoice.invoiceValue
+                                                                    )
+                                                                ));
                                                             }
                                                             else {
                                                               const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
@@ -200,6 +216,14 @@ export default function InternetInvoiceTable({ searchText, work, setWork, intern
                                                                   updateVal = invValue;
                                                                   updateInternet(updateRow, updateCol, updateVal);
                                                                 }
+                                                                const newInvoice = {
+                                                                    customerName:(invoice)[2],
+                                                                    customerNumber:(invoice)[1],
+                                                                    customerDetails:(invoice)[3],
+                                                                    invoiceNumber:thArr[cellIndex/3-3],
+                                                                    invoiceValue:(invoice)[6],
+                                                                }
+                                                                setFinalTable([...finalTable, newInvoice ])
                                                             }
 
                                                         }}

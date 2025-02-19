@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 
-export default function ElecTable({ searchText, work, setWork, elecTotal, phoneTotal, waterTotal, setElecTotal, setPhoneTotal, setWaterTotal }) {
+export default function ElecTable({ finalTable, setFinalTable, searchText, work, setWork, elecTotal, phoneTotal, waterTotal, setElecTotal, setPhoneTotal, setWaterTotal }) {
     const [invoicesData, setInvoicesData] = useState([]);
     const [originalRows, setOriginalRows] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -188,6 +188,22 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
                                                                   updateVal = "";
                                                                   updateElec(updateRow, updateCol, updateVal);
                                                                 }
+                                                                const deletedInvoice = {
+                                                                    customerName:(invoice)[1],
+                                                                    customerNumber:(invoice)[3],
+                                                                    customerDetails:(invoice)[2],
+                                                                    invoiceNumber:(invoice)[cellIndex-3],
+                                                                    invoiceValue:(invoice)[cellIndex-2],
+                                                                }
+                                                                setFinalTable(finalTable.filter(inv => 
+                                                                    !(
+                                                                        inv.customerName === deletedInvoice.customerName &&
+                                                                        inv.customerNumber === deletedInvoice.customerNumber &&
+                                                                        inv.customerDetails === deletedInvoice.customerDetails &&
+                                                                        inv.invoiceNumber === deletedInvoice.invoiceNumber &&
+                                                                        inv.invoiceValue === deletedInvoice.invoiceValue
+                                                                    )
+                                                                ));
                                                             }
                                                             else {
                                                               const key = Object.keys(invoice)[cellIndex] || `field_${cellIndex}`;
@@ -212,6 +228,14 @@ export default function ElecTable({ searchText, work, setWork, elecTotal, phoneT
                                                                   updateVal = invValue;
                                                                   updateElec(updateRow, updateCol, updateVal);
                                                                 }
+                                                                const newInvoice = {
+                                                                    customerName:(invoice)[1],
+                                                                    customerNumber:(invoice)[3],
+                                                                    customerDetails:(invoice)[2],
+                                                                    invoiceNumber:(invoice)[cellIndex-3],
+                                                                    invoiceValue:(invoice)[cellIndex-2],
+                                                                }
+                                                                setFinalTable([...finalTable, newInvoice ])
                                                             }
 
                                                         }}
