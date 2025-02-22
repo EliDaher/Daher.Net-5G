@@ -3,12 +3,16 @@ import CustomerDetails from "../component/CustomerDetails";
 import { useParams } from "react-router-dom";
 import CustomerPayments from "../component/CustomerPayments";
 import CustomerInvoice from "../component/CustomerInvoice";
+import { useAuth } from "../context/AuthContext";
+
 
 function UserPage() {
   const { id } = useParams(); // الحصول على معرف المشترك من الـ URL
   const [total, setTotal] = useState(0);
   const [invoicesVal, setInvoicesVal] = useState(0);
   const [paymentsVal, setPaymentsVal] = useState(0);
+  const { user } = useAuth();
+
 
   // تحديث القيمة الإجمالية عند تغير الدفعات أو الفواتير
   useEffect(() => {

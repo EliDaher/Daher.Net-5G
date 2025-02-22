@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import InternetInvoiceTable from "../component/InternetInvoiceTable"
 import ElecTable from "../component/ElecTable";
 import FinalTableCom from "../component/FinalTableCom";
+import ConfirmInvForm from "../component/ConfirmInvForm";
 
 
 function Invoice(){
@@ -14,6 +15,12 @@ function Invoice(){
     const [waterTotal, setWaterTotal] = useState(0);
     const [TotalInvoices, setTotalInvoices] = useState(0);
     const [finalTable, setFinalTable] = useState([])
+
+    const [isOpen, setIsOpen] = useState(false);
+    const closeModal = () => setIsOpen(false);
+    const openModalPay = () => setIsOpen(true);  
+    const handleFormSubmit = () => closeModal();
+
 
     useEffect(()=>{
         setTotalInvoices(Number(internetTotal)+Number(elecTotal)+Number(phoneTotal)+Number(waterTotal))
@@ -28,7 +35,13 @@ function Invoice(){
             {/* 🔍 حقل البحث */}
             <div className="mb-4 flex flex-wrap justify-center mx-auto my-4 select-none">
                 <div className="flex shadow-[0px_0px_4px] shadow-accent-400 mr-5 rounded-lg text-text-950">
-                    <button className="text-center text-lg p-2 border-r rounded-l-lg border-text-950 bg-accent-200 hover:bg-accent-300 font-bold">
+                    <button 
+                        onClick={()=>{
+                            if(finalTable.length > 0){
+                                openModalPay()
+                            }
+                        }}
+                        className="text-center text-lg p-2 border-r rounded-l-lg border-text-950 bg-accent-200 hover:bg-accent-300 font-bold">
                         انهاء
                     </button>
                     <div className="text-center text-xl p-2 rounded-r-lg">
@@ -58,7 +71,10 @@ function Invoice(){
             </div>
             <InternetInvoiceTable finalTable={finalTable} setFinalTable={setFinalTable} searchText={searchText} work={work} setWork={setWork} internetTotal={internetTotal} setInternetTotal={setInternetTotal}></InternetInvoiceTable>
             <ElecTable finalTable={finalTable} setFinalTable={setFinalTable} searchText={searchText} work={work} setWork={setWork} elecTotal={elecTotal} setElecTotal={setElecTotal}phoneTotal={phoneTotal} setPhoneTotal={setPhoneTotal} waterTotal={waterTotal} setWaterTotal={setWaterTotal}></ElecTable>
-            <FinalTableCom finalTable={finalTable}></FinalTableCom>
+            <div className="w-80 m-auto rounded-lg px-6 py-3">
+                <FinalTableCom finalTable={finalTable}></FinalTableCom>
+            </div>
+            <ConfirmInvForm TotalInvoices={TotalInvoices} finalTable={finalTable} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
         </div>
     </>
 }
