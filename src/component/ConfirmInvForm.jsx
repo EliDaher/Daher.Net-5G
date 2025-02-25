@@ -5,17 +5,19 @@ import { useAuth } from "../context/AuthContext";
 
 
 
-function ConfirmInvForm({ TotalInvoices, finalTable, isOpen, onClose, onSubmit}) {
+function ConfirmInvForm({ clearAllTables, TotalInvoices, finalTable, isOpen, onClose, onSubmit}) {
 
   if (!isOpen) return null;
   const { user } = useAuth();
 
 
+
+ 
+    
   const [today,setToday] = useState(new Date().toISOString().split('T')[0]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-
 
     try {
       const invoiceData = {
@@ -29,10 +31,12 @@ function ConfirmInvForm({ TotalInvoices, finalTable, isOpen, onClose, onSubmit})
       if (response.data.success) {
         console.log("تمت إضافة الفاتورة بنجاح!");
       }
+    
     } catch (error) {
       console.error("حدث خطأ أثناء إرسال الفاتورة:", error.response?.data || error.message);
     }
 
+    clearAllTables();
     onSubmit();
     onClose();
     
@@ -52,10 +56,10 @@ function ConfirmInvForm({ TotalInvoices, finalTable, isOpen, onClose, onSubmit})
               تأكيد الفواتير
             </h2>
             <form onSubmit={handleFormSubmit}>
-                <div className="my-8 text-right">
+                <div className="my-8 text-right h-96 overflow-y-scroll">
                     <FinalTableCom finalTable={finalTable}></FinalTableCom>
-                    <h3 className="my-3">المجموع : <strong>{TotalInvoices}</strong></h3>
                 </div>
+                <h3 className="my-3">المجموع : <strong>{TotalInvoices}</strong></h3>
                 <div className="flex justify-start gap-3">
                     <button
                       type="submit"

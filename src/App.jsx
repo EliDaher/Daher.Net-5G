@@ -27,6 +27,7 @@ function App() {
           <h1 className="ml-5 text-3xl font-bold font-Pacifico">Daher.Net</h1>
           <h5 className="text-xl opacity-30 select-none text-text-100">{user.username}</h5>
           <button
+            type="button"
             className="p-3 pb-1 bg-transparent"
             onClick={() => {
               setOpenNav(!openNav);

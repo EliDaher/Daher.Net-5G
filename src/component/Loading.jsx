@@ -3,7 +3,7 @@ import React from "react";
 
 function Loading({type}){
     if(type == "any"){return<>
-        <div className="absolute right-1/2 bottom-1/2 transform translate-x-1/2 translate-y-1/2">
+        <div className="right-1/2 bottom-1/2 transform translate-x-1/2 translate-y-1/2">
             <div className="p-4 bg-gradient-to-tr animate-spin from-primary-100 to-secondary-900 rounded-full">
                 <div className="bg-white rounded-full">
                     <div className="w-24 h-24 rounded-full"></div>
@@ -39,7 +39,11 @@ function Loading({type}){
             </table>
         </div>
     </div>
-    }
+    } else if(type == "div"){return<>
+        <div class="flex justify-center items-center bg-gray-100">
+          <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-blue-500 border-solid"></div>
+        </div>
+    </>}
 }
 
 export default Loading;

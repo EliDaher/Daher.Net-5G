@@ -3,6 +3,7 @@ import { ref, get, child } from "firebase/database";
 import { database } from '../firebaseConfig';
 import PieChartExample from '../component/PieChartExample';
 import BarChartComponent from '../component/BarChartComponent';
+import FundChart from '../component/FundChart';
 import Loading from "../component/Loading"
 import { useAuth } from "../context/AuthContext";
 
@@ -81,9 +82,7 @@ function Dashboard() {
     fetchUsersData();
   }, []); // Empty dependency array ensures this effect runs once when component mounts
   
-  if (loading) {
-    return <Loading type={"any"}/>;
-  }
+  
   
   if (error) {
     return <div className='m-6'>{error}</div>;
@@ -97,10 +96,13 @@ function Dashboard() {
     <>
       <div className="flex flex-wrap w-screen items-center justify-around gap-7 md:gap-5 sm:gap-2 m-3">
         <div className='w-full md:w-2/5 p-3 shadow-[0px_0px_10px_#999] rounded-2xl'>
-          <BarChartComponent data={users}></BarChartComponent>
+          <BarChartComponent loading={loading} data={users}></BarChartComponent>
         </div>  
         <div className='w-full md:w-2/5 p-3 shadow-[0px_0px_10px_#999] rounded-2xl'>
-          <PieChartExample dataSet={speeds}></PieChartExample>
+          <PieChartExample dataSet={speeds} loading={loading}></PieChartExample>
+        </div>
+        <div className='w-full md:w-2/5 p-3 shadow-[0px_0px_10px_#999] rounded-2xl'>
+          <FundChart></FundChart>
         </div>
       </div>
     </>

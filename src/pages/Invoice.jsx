@@ -21,6 +21,14 @@ function Invoice(){
     const openModalPay = () => setIsOpen(true);  
     const handleFormSubmit = () => closeModal();
 
+    const clearAllTables = () => {
+        setInternetTotal(0)
+        setElecTotal(0)
+        setWaterTotal(0)
+        setPhoneTotal(0)
+        setFinalTable([])
+    }
+
 
     useEffect(()=>{
         setTotalInvoices(Number(internetTotal)+Number(elecTotal)+Number(phoneTotal)+Number(waterTotal))
@@ -60,11 +68,7 @@ function Invoice(){
                 <button 
                     onClick={()=>{
                         setWork(true)
-                        setInternetTotal(0)
-                        setElecTotal(0)
-                        setWaterTotal(0)
-                        setPhoneTotal(0)
-                        setFinalTable([])
+                        clearAllTables()
                     }}
                     className="p-2 rounded-r-lg bg-primary-500 text-white font-bold"
                 >بحث</button>
@@ -74,7 +78,7 @@ function Invoice(){
             <div className="w-80 m-auto rounded-lg px-6 py-3">
                 <FinalTableCom finalTable={finalTable}></FinalTableCom>
             </div>
-            <ConfirmInvForm TotalInvoices={TotalInvoices} finalTable={finalTable} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
+            <ConfirmInvForm clearAllTables={clearAllTables} TotalInvoices={TotalInvoices} finalTable={finalTable} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
         </div>
     </>
 }

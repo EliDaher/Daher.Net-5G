@@ -1,7 +1,10 @@
 import React from 'react';
 import { PieChart, Pie, Legend, Tooltip, ResponsiveContainer } from 'recharts';
+import Loading from "../component/Loading"
 
-const PieChartExample = ({dataSet}) => {
+
+
+const PieChartExample = ({dataSet, loading}) => {
 
   const getTotalSpeed = () =>{
     var total = 0;
@@ -10,6 +13,10 @@ const PieChartExample = ({dataSet}) => {
     })
     return total;
   }  
+
+  if (loading) {
+    return <Loading type={"div"}/>;
+  }
    
   return (
     <div className="w-full h-80 relative">
