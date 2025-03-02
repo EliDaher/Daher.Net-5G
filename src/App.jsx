@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Customers from "./pages/Customers";
 import Invoice from "./pages/Invoice";
@@ -49,7 +49,7 @@ function App() {
             <Route path="/customers" element={<Customers />} />
             <Route path="/invoice" element={<Invoice />} />
             <Route path="/subscriber/:id" element={<UserPage />} />
-            <Route path="*" element={<Navigate to={`${user.role == "admin"? "/dashboard" : "/invoice"}`} />} /> {/* Redirect unknown routes */}
+            <Route path="*" element={<Navigate to={user.role === "admin" ? "/dashboard" : "/invoice"} />} /> {/* Redirect unknown routes */}
           </Routes>
         </main>
       </>
@@ -57,7 +57,7 @@ function App() {
   };
 
   return (
-    <Router basename="/Daher.Net-5G/">
+    <Router>
       <AppRoutes />
     </Router>
   );
