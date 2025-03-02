@@ -5,6 +5,8 @@ import Customers from "./pages/Customers";
 import Invoice from "./pages/Invoice";
 import UserPage from "./pages/UserPage";
 import Login from "./pages/Login";
+import Balance from "./pages/Balance";
+import EmployeeBalance from "./pages/EmployeeBalance";
 import Navbar from "./component/Navbar";
 import { useAuth } from "./context/AuthContext";
 
@@ -38,9 +40,11 @@ function App() {
         </div>
 
         {/* Main Layout */}
-        <main className="flex max-w-full">
+        <main className="flex max-w-full h-[calc(100vh-3rem)] overflow-y-scroll scrollbar-hide">
           <Navbar setOpenNav={setOpenNav} openNav={openNav} />
           <Routes>
+            <Route path="/balance" element={<Balance />} />
+            <Route path="/myBalance" element={<EmployeeBalance />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/invoice" element={<Invoice />} />

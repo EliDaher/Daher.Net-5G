@@ -33,10 +33,6 @@ function Invoice(){
     useEffect(()=>{
         setTotalInvoices(Number(internetTotal)+Number(elecTotal)+Number(phoneTotal)+Number(waterTotal))
     }, [internetTotal, elecTotal, phoneTotal, waterTotal])
-    useEffect(()=>{
-        console.log(finalTable)
-    }, [finalTable])
-    
 
     return<>
         <div className="flex-col w-full">

@@ -1,6 +1,6 @@
 import React from "react";
 
-function UserCard({userName, userIndex, userSpeed, userSender, userLocation, userAccount, userPassword, userContact, userIp, userFee}){
+function UserCard({userName, userIndex, userSpeed, userSender, userLocation, userAccount, userPassword, userContact, userBalance = 0, userFee}){
     return <>
         <div className="w-48 h-64">
             <strong className="text-text-950 text-xl">{userIndex}.{userName}</strong>
@@ -19,11 +19,11 @@ function UserCard({userName, userIndex, userSpeed, userSender, userLocation, use
                 </p>  
                 <div>{userSender}</div>
             </div>
-            <div className="font-bold text-text-900 opacity-70 flex">
+          {/*  <div className="font-bold text-text-900 opacity-70 flex">
                 <p>الموقع : &nbsp;
                 </p>  
                 <div>{userLocation}</div>
-            </div>
+            </div>*/}
             <div className="font-bold text-text-900 opacity-70 flex flex-col">
                 <p>اسم المستخدم : &nbsp;
                 </p>  
@@ -39,10 +39,10 @@ function UserCard({userName, userIndex, userSpeed, userSender, userLocation, use
                 </p>  
                 <div>{userContact}</div>
             </div>
-            <div className="font-bold text-text-900 opacity-70 flex">
-                <p>عنوان ip : &nbsp;
+            <div className="font-bold text-text-900 flex">
+                <p className=" opacity-70">رصيد المشترك : &nbsp;
                 </p>  
-                <div>{userIp}</div>
+                <div className="text-primary-600">{userBalance}</div>
             </div>
         </div>
     </>

@@ -37,7 +37,6 @@ function UserPage() {
           <h2 className="mb-4 font-bold text-lg">الدفعات</h2>
           <CustomerPayments subscriberID={id} setPaymentsVal={setPaymentsVal} />
         </div>
-
         {/* الفواتير */}
         <div className="rounded-lg border shadow-md p-4">
           <h2 className="mb-4 font-bold text-lg">الفواتير</h2>

@@ -10,7 +10,7 @@ function Navbar({setOpenNav, openNav}){
     const { logout, user } = useAuth();
 
     return<>
-        <div className={`bg-primary-950 h-screen w-60 h-100 absolute top-0 ${openNav ? "left-0" : "-left-64"} transition-all z-40 shadow-lg`}>
+        <div className={`bg-primary-950 h-screen w-60 absolute top-0 ${openNav ? "left-0" : "-left-64"} transition-all z-40 shadow-lg`}>
             <button className="right-2 absolute p-1 bg-primary-950" onClick={() => setOpenNav(!openNav)}>
                 <i className="fa-solid fa-xmark text-2xl text-white"></i>
             </button>
@@ -29,6 +29,12 @@ function Navbar({setOpenNav, openNav}){
             <div>
                 <Navbutton buttonText={"Invoice"} linkDirectory={"Invoice"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
             </div>
+            <div>
+                <Navbutton buttonText={"My Balance"} linkDirectory={"myBalance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
+            </div>
+           {/* <div>
+                <Navbutton buttonText={"Balance"} linkDirectory={"balance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
+            </div>*/}
             
             <div onClick={()=> logout()} className="w-20 text-center p-1 px-2 border border-primary-800 shadow shadow-primary-900 absolute bottom-2 left-1/3 font-bold text-text-100 rounded-lg hover:bg-primary-800">
                 <Link to={"/login"}>

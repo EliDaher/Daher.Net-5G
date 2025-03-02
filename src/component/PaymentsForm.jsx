@@ -2,9 +2,12 @@ import React, { useState } from "react";
 import { ref, set, push, get } from "firebase/database";
 import { database } from '../firebaseConfig';
 
-function PaymentsForm({ isOpen, onClose, onSubmit, SubscriberID}) {
+function PaymentsForm({ total, isOpen, onClose, onSubmit, SubscriberID}) {
   if (!isOpen) return null;
   const [today,setToday] = useState(new Date().toISOString().split('T')[0]);
+  const [amount, setAmount] = useState(0)
+
+
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +20,7 @@ function PaymentsForm({ isOpen, onClose, onSubmit, SubscriberID}) {
     
     // البيانات المرسلة من النموذج
     const formData = {
-        Amount: document.getElementById("Amount").value,
+        Amount: amount,
         Date: document.getElementById("Date").value,
         Details: document.getElementById('Details').value,
         PaymentID: PaymentID,
@@ -30,6 +33,14 @@ function PaymentsForm({ isOpen, onClose, onSubmit, SubscriberID}) {
     await set(newDataRef, formData);
 
     set(newDataRef, formData)
+
+    var newTotal = Number(total) + Number(amount)
+    const updateCostumerBalance = ref(database, `Subscribers/${SubscriberID}/Balance`);
+    await set(updateCostumerBalance, total + newTotal);
+
+    set(updateCostumerBalance, newTotal)
+
+
     .then(() => {
       console.log("Data added successfully!");
       onClose(); // إغلاق النموذج بعد الإرسال
@@ -68,6 +79,8 @@ function PaymentsForm({ isOpen, onClose, onSubmit, SubscriberID}) {
               type="number"
               id="Amount"
               required
+              value={amount}
+              onChange={(e) => {setAmount(e.target.value)}}
               className="focus:outline-primary mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-right"
             />
           </div>

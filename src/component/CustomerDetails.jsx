@@ -105,8 +105,8 @@ function CustomerDetails({id, total}){
             ) : (
                 <p>لا توجد بيانات لعرضها.</p>
             )}
-            <PaymentsForm SubscriberID={id} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
-            <InvoiceForm SubscriberID={id} invoiceIsOpen={invoiceIsOpen} onClose={closeInvoiceModal} onSubmit={handleInvoiceSubmit} />
+            <PaymentsForm total={total} SubscriberID={id} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
+            <InvoiceForm total={total} SubscriberID={id} invoiceIsOpen={invoiceIsOpen} onClose={closeInvoiceModal} onSubmit={handleInvoiceSubmit} />
         </>
     );
 }

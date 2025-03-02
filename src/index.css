@@ -31,6 +31,16 @@
 .scrollbar-hide::-webkit-scrollbar{
   display: none;
 }
+.scrollbar-sm::-webkit-scrollbar{
+  width: 5px;
+  background-color: #fff;
+  padding: 1px;
+}
+.scrollbar-sm::-webkit-scrollbar-thumb{
+  width: 3px;
+  background-color: #cdcdcd;
+  border-radius: 20px;
+}
 
 
 

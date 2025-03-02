@@ -18,15 +18,14 @@ export default function FundChart() {
   const [chartData, setChartData] = useState([]);
  // Listen for updates
  socket.on("update-employee-totals", (totalsByEmployee) => {
-    console.log("Received Data:", totalsByEmployee);
-    setChartData([...totalsByEmployee]);
+  setChartData([...totalsByEmployee]);
 });
   useEffect(() => {
     if(!chartData.length > 0){        
         const getChartData = async ()=>{
 
-            const response = await axios.post("https://server-xwsx.onrender.com/getEmployeesFund");
-            setChartData(response.data.TotalFund)
+          const response = await axios.post("https://server-xwsx.onrender.com/getEmployeesFund");
+          setChartData(response.data.TotalFund)
             
         }
         getChartData()

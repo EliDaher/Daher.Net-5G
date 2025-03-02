@@ -207,7 +207,7 @@ function PopupForm({ isOpen, onClose, onSubmit }) {
               Save
             </button>
             <button
-                className="ml-auto bg-red-500 text-white hover:text-white"
+                className="ml-auto bg-red-500 text-white px-4 py-2 rounded-md hover:text-white"
                 onClick={onClose}
             >
                 Close

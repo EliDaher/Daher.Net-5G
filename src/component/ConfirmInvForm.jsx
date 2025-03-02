@@ -10,12 +10,6 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, finalTable, isOpen, onC
   if (!isOpen) return null;
   const { user } = useAuth();
 
-
-
- 
-    
-  const [today,setToday] = useState(new Date().toISOString().split('T')[0]);
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
