@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 
-export default function InternetInvoiceTable({ finalTable, setFinalTable, searchText, work, setWork, internetTotal, setInternetTotal }) {
+export default function InternetInvoiceTable({ loading, internetMatchingRows, internetOriginalRows, finalTable, setFinalTable, searchText, work, setWork, internetTotal, setInternetTotal }) {
     const [invoicesData, setInvoicesData] = useState([]);
     const [originalRows, setOriginalRows] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const timeElapsed = Date.now();
     const nowDate = new Date(timeElapsed);
@@ -23,41 +22,19 @@ export default function InternetInvoiceTable({ finalTable, setFinalTable, search
         "7/25",
         "8/25",
         "9/25",
+        "10/25",
+        "11/25",
+        "12/25",
     ]);
 
 
-    const internetSearch = async () => {
-        if (!searchText?.PhNumber) return;
-
-        setLoading(true);
-        setError(null);
-
-        try {
-            const response = await axios.post("https://server-xwsx.onrender.com/internetSearch", searchText );
-
-            if (response.data.matchingRows?.length > 0) {
-                setOriginalRows(response.data.originalRows);
-                setInvoicesData(response.data.matchingRows);
-            } else {
-                console.log("No matching rows found.");
-                setInvoicesData([]);
-            }
-        } catch (err) {
-            console.error(err);
-            setError("حدث خطأ أثناء البحث.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
     useEffect(() => {
-        if (work && searchText?.PhNumber) {
-            internetSearch();
+        if (internetMatchingRows.length > 0) {
+            setInvoicesData(internetMatchingRows)
+            setOriginalRows(internetOriginalRows)
             setWork(false);
         }
-    }, [work]);
-
-
+    }, [internetMatchingRows]);
     
     const updateInternet = (originalRow, colIndex, newValue) => {
         axios.post('https://server-xwsx.onrender.com/update', {
@@ -72,18 +49,6 @@ export default function InternetInvoiceTable({ finalTable, setFinalTable, search
             console.error("Error updating data:", error);
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     if (loading) return <div className="flex items-center justify-center"><Loading type={"table"} /></div>;
@@ -128,7 +93,7 @@ export default function InternetInvoiceTable({ finalTable, setFinalTable, search
                         <tbody>
                             {invoicesData.map((invoice, index) => {
                                 const invoiceValues = Object.values(invoice);
-                                const totalCells = 41;
+                                const totalCells = 50;
 
                                 return (
                                     <tr

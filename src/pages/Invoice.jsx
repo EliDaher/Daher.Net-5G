@@ -3,6 +3,7 @@ import InternetInvoiceTable from "../component/InternetInvoiceTable"
 import ElecTable from "../component/ElecTable";
 import FinalTableCom from "../component/FinalTableCom";
 import ConfirmInvForm from "../component/ConfirmInvForm";
+import axios from "axios";
 
 
 function Invoice(){
@@ -14,12 +15,20 @@ function Invoice(){
     const [phoneTotal, setPhoneTotal] = useState(0);
     const [waterTotal, setWaterTotal] = useState(0);
     const [TotalInvoices, setTotalInvoices] = useState(0);
-    const [finalTable, setFinalTable] = useState([])
+    const [finalTable, setFinalTable] = useState([]);
+
+    const [elecMatchingRows, setElecMatchingRows] = useState(0);
+    const [elecOriginalRows, setElecOriginalRows] = useState(0);
+    const [internetMatchingRows, setInternetMatchingRows] = useState(0);
+    const [internetOriginalRows, setInternetOriginalRows] = useState(0);
 
     const [isOpen, setIsOpen] = useState(false);
     const closeModal = () => setIsOpen(false);
     const openModalPay = () => setIsOpen(true);  
     const handleFormSubmit = () => closeModal();
+
+    const [loading, setLoading] = useState(false);
+    
 
     const clearAllTables = () => {
         setInternetTotal(0)
@@ -29,6 +38,27 @@ function Invoice(){
         setFinalTable([])
     }
 
+
+    const searchForRows = async () => {
+        if (!searchText?.PhNumber) return;
+
+        setLoading(true)
+
+        try {
+            const response = await axios.post("https://server-xwsx.onrender.com/search", searchText );
+
+            setElecOriginalRows(response.data.elecOriginalRows)
+            setElecMatchingRows(response.data.elecMatchingRows)
+            setInternetOriginalRows(response.data.internetOriginalRows)
+            setInternetMatchingRows(response.data.internetMatchingRows)
+            
+        } catch (err) {
+            console.error(err);
+            //setError("حدث خطأ أثناء البحث.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     useEffect(()=>{
         setTotalInvoices(Number(internetTotal)+Number(elecTotal)+Number(phoneTotal)+Number(waterTotal))
@@ -64,13 +94,42 @@ function Invoice(){
                 <button 
                     onClick={()=>{
                         setWork(true)
+                        searchForRows()
                         clearAllTables()
                     }}
                     className="p-2 rounded-r-lg bg-primary-500 text-white font-bold"
                 >بحث</button>
             </div>
-            <InternetInvoiceTable finalTable={finalTable} setFinalTable={setFinalTable} searchText={searchText} work={work} setWork={setWork} internetTotal={internetTotal} setInternetTotal={setInternetTotal}></InternetInvoiceTable>
-            <ElecTable finalTable={finalTable} setFinalTable={setFinalTable} searchText={searchText} work={work} setWork={setWork} elecTotal={elecTotal} setElecTotal={setElecTotal}phoneTotal={phoneTotal} setPhoneTotal={setPhoneTotal} waterTotal={waterTotal} setWaterTotal={setWaterTotal}></ElecTable>
+            <InternetInvoiceTable 
+                loading={loading}
+                internetOriginalRows={internetOriginalRows}
+                internetMatchingRows={internetMatchingRows}
+                finalTable={finalTable} 
+                setFinalTable={setFinalTable} 
+                searchText={searchText} 
+                work={work} 
+                setWork={setWork} 
+                internetTotal={internetTotal} 
+                setInternetTotal={setInternetTotal}
+            />
+
+            <ElecTable 
+                loading={loading}
+                elecOriginalRows={elecOriginalRows}
+                elecMatchingRows={elecMatchingRows}
+                finalTable={finalTable} 
+                setFinalTable={setFinalTable} 
+                searchText={searchText} 
+                work={work} 
+                setWork={setWork} 
+                elecTotal={elecTotal} 
+                setElecTotal={setElecTotal}
+                phoneTotal={phoneTotal} 
+                setPhoneTotal={setPhoneTotal} 
+                waterTotal={waterTotal} 
+                setWaterTotal={setWaterTotal}
+            />
+
             <div className="w-80 m-auto rounded-lg px-6 py-3">
                 <FinalTableCom finalTable={finalTable}></FinalTableCom>
             </div>

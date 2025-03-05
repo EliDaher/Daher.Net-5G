@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Loading from "./Loading";
 
-export default function ElecTable({ finalTable, setFinalTable, searchText, work, setWork, elecTotal, phoneTotal, waterTotal, setElecTotal, setPhoneTotal, setWaterTotal }) {
+export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows, finalTable, setFinalTable, searchText, work, setWork, elecTotal, phoneTotal, waterTotal, setElecTotal, setPhoneTotal, setWaterTotal }) {
     const [invoicesData, setInvoicesData] = useState([]);
     const [originalRows, setOriginalRows] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const timeElapsed = Date.now();
     const nowDate = new Date(timeElapsed);
@@ -24,39 +23,6 @@ export default function ElecTable({ finalTable, setFinalTable, searchText, work,
         "1"
     ]);
 
-
-    const internetSearch = async () => {
-        if (!searchText?.PhNumber) return;
-
-        setLoading(true);
-        setError(null);
-
-        try {
-            const response = await axios.post("https://server-xwsx.onrender.com/elecSearch", searchText );
-
-            if (response.data.elecMatchingRows?.length > 0) {
-                setOriginalRows(response.data.originalRows);
-                setInvoicesData(response.data.elecMatchingRows);
-            } else {
-                console.log("No matching rows found.");
-                setInvoicesData([]);
-            }
-        } catch (err) {
-            console.error(err);
-            setError("حدث خطأ أثناء البحث.");
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        if (work && searchText?.PhNumber) {
-            internetSearch();
-            setWork(false);
-        }
-    }, [work]);
-
-
     
     const updateElec = (originalRow, colIndex, newValue) => {
         axios.post('https://server-xwsx.onrender.com/updateElec', {
@@ -72,18 +38,14 @@ export default function ElecTable({ finalTable, setFinalTable, searchText, work,
         });
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
+    useEffect(() => {
+        if (elecMatchingRows.length > 0) {
+            setInvoicesData(elecMatchingRows)
+            setOriginalRows(elecOriginalRows)
+            setWork(false);
+        }
+    }, [elecMatchingRows]);
+    
 
     if (loading) return <div className="flex items-center justify-center"><Loading type={"table"} /></div>;
     if (error) return <div className="m-6 w-full text-red-500">{error}</div>;
@@ -134,10 +96,13 @@ export default function ElecTable({ finalTable, setFinalTable, searchText, work,
                                 return (
                                     <tr
                                         key={index}
-                                        className="even:bg-gray-100 transition-all duration-200 
+                                        className={`transition-all duration-200 
+                                        ${invoiceValues[1].includes("ارضي") ? `bg-orange-200` : ``}
+                                        ${invoiceValues[1].includes("كهربا") ? `bg-yellow-200` : ``}
+                                        ${invoiceValues[1].includes("ميا") ? `bg-blue-200` : ``}
                                         [&>*:nth-child(6n-1)>*:nth-child(1)>*]:w-1 [&>*:nth-child(1)>*>*]:w-10
                                         [&>*:nth-child(6n-1)>*>*]:w-20 [&>*:nth-child(6n-1)]:bg-primary-700 
-                                        hover:bg-primary-100"
+                                        hover:bg-primary-100`}
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (

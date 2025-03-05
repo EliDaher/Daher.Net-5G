@@ -5,6 +5,7 @@ import { ref, get, child, update } from "firebase/database";
 import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 import AddBalanceForm from "../component/AddBalanceForm";
+import EmployeeBalanceTotal from "../component/EmployeeBalanceTotal";
 
 
 export default function EmployeeBalance(){
@@ -57,24 +58,7 @@ export default function EmployeeBalance(){
         <div className="w-full" dir="rtl">
             <BalanceTable loading={loading} dataTable={BalanceTableData}/>
 
-            <div className="flex h-10 items-center justify-around mt-8">
-                <span className="text-center text-xl font-bold">الرصيد الحالي : <strong>{Number(Total)}</strong></span>
-                <div className="flex gap-3 px-2">
-                    <button onClick={()=>{
-                        setPayOrInv("pay")
-                        openAddBalanceForm()
-                    }} 
-                    className="p-2 bg-primary-500 text-white rounded hover:bg-primary-600"
-                    >اضافة الى رصيد</button>
-                    <button 
-                    onClick={()=>{
-                        setPayOrInv("inv")
-                        openAddBalanceForm()
-                    }}
-                    className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
-                    >دفع من رصيد</button>
-                </div>
-            </div>
+           <EmployeeBalanceTotal setPayOrInv={setPayOrInv} openAddBalanceForm={openAddBalanceForm} Total={Total}/>
            {/* <div className="bg-accent-500 m-3 mt-10 p-5 rounded text-center text-3xl font-black hover:bg-accent-600">
                 انهاء اليومية
             </div>*/}

@@ -9,7 +9,7 @@ export default function BalanceTable({loading, dataTable = []}){
     return <>
         <div className={`overflow-y-scroll scrollbar-sm h-[70vh] w-full border border-primary-700 ${loading ? `animate-pulse` : ``}`}>
             <table className="w-full">
-                <thead className="h-10 bg-primary-500 text-white sticky top-0">
+                <thead className="h-8 bg-primary-500 text-white sticky top-0">
                     <tr className="border-none">
                         <th className="w-2">#</th>
                         <th>القيمة</th>

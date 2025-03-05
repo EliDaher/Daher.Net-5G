@@ -24,10 +24,10 @@ export default function Balance() {
                     {/* Front Side */}
                     <div className="absolute w-full h-full shadow-lg shadow-primary-800 rounded-xl flex flex-col [backface-visibility:hidden]">
                         <div className="flex flex-col" dir="rtl">
-                            <BalanceTable/>
+                            <BalanceTable />
 
                             <div className="flex gap-3 items-center justify-around border border-primary-900 m-1 py-3 rounded-lg">
-                                <div className="flex flex-col flex-wrap h-40 gap-2">
+                                <div className="flex flex-col flex-wrap h-24 gap-2">
                                     <span>صندوق ايلي : 9,999,999</span>
                                     <span>صندوق ايلي : 9,999,999</span>
                                     <span>صندوق ايلي : 9,999,999</span>
