@@ -4,6 +4,7 @@ import ElecTable from "../component/ElecTable";
 import FinalTableCom from "../component/FinalTableCom";
 import ConfirmInvForm from "../component/ConfirmInvForm";
 import axios from "axios";
+import AddBalanceForm from "../component/AddBalanceForm";
 
 
 function Invoice(){
@@ -26,6 +27,15 @@ function Invoice(){
     const closeModal = () => setIsOpen(false);
     const openModalPay = () => setIsOpen(true);  
     const handleFormSubmit = () => closeModal();
+
+    const [payIsOpen, setPayIsOpen] = useState(false);
+        const [payOrInv, setPayOrInv] = useState("pay");
+        const closePayModal = () => setPayIsOpen(false);
+        const openAddBalanceForm = () => setPayIsOpen(true);
+      
+        const handlePayFormSubmit = () => {
+          closePayModal(); // إغلاق النموذج بعد الإرسال
+        }; 
 
     const [loading, setLoading] = useState(false);
     
@@ -68,6 +78,21 @@ function Invoice(){
         <div className="flex-col w-full">
             {/* 🔍 حقل البحث */}
             <div className="mb-4 flex flex-wrap justify-center mx-auto my-4 select-none">
+                <div className="flex gap-3 px-2 mr-10">
+                    <button onClick={()=>{
+                        setPayOrInv("pay")
+                        openAddBalanceForm()
+                    }} 
+                    className="p-2 bg-primary-500 text-white rounded hover:bg-primary-600"
+                    >قبض</button>
+                    <button 
+                    onClick={()=>{
+                        setPayOrInv("inv")
+                        openAddBalanceForm()
+                    }}
+                    className="p-2 bg-red-500 text-white rounded hover:bg-red-600"
+                    >دفع</button>
+                </div>
                 <div className="flex shadow-[0px_0px_4px] shadow-accent-400 mr-5 rounded-lg text-text-950">
                     <button 
                         onClick={()=>{
@@ -135,6 +160,7 @@ function Invoice(){
             </div>
             <ConfirmInvForm clearAllTables={clearAllTables} TotalInvoices={TotalInvoices} finalTable={finalTable} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
         </div>
+        <AddBalanceForm payOrInv={payOrInv} isOpen={payIsOpen} onClose={closePayModal} onSubmit={handlePayFormSubmit} />
     </>
 }
 

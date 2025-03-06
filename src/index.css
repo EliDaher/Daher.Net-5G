@@ -42,6 +42,18 @@
   border-radius: 20px;
 }
 
+.scrollbar-x-sm::-webkit-scrollbar{
+  height: 5px;
+  background-color: #fff;
+  padding: 1px;
+}
+.scrollbar-x-sm::-webkit-scrollbar-thumb{
+  height: 3px;
+  background-color: #cdcdcd;
+  border-radius: 20px;
+}
+
+
 
 
 /*custom css style*/

@@ -5,7 +5,7 @@ function DaherLogo(){
     <div className="m-auto pt-4 w-36 h-36">
         <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <g filter="url(#filter0_i_1_18)">
-        <rect width="32" height="32" rx="16" className="fill-primary-950"/>
+        <rect width="32" height="32" rx="16" className="fill-transparent"/>
         </g>
         <rect x="0.375" y="0.375" width="31.25" height="31.25" rx="15.625" stroke="white" strokeWidth="0.75"/>
         <g filter="url(#filter1_d_1_18)">

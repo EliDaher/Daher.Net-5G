@@ -39,8 +39,8 @@ export const AuthProvider = ({ children }) => {
 
     logoutTimer = setTimeout(() => {
       alert("User logged out due to inactivity");
-      logout(); // تسجيل الخروج بعد 10 دقائق من عدم النشاط
-    }, 10 * 60 * 1000);
+      logout(); // تسجيل الخروج بعد 60 دقائق من عدم النشاط
+    }, 60 * 60 * 1000);
   }, [logout]);
 
   // دالة تسجيل الدخول

@@ -3,6 +3,8 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../component/Loading";
+import DaherLogo from "../images/DaherLogo";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -46,11 +48,12 @@ const Login = () => {
   return (
     <div className="flex max-h-full items-center justify-center w-screen h-screen">
       <div className="w-full max-w-md p-8 space-y-6 bg-background-800 shadow-lg border border-primary-300 rounded-xl">
-        <h2 className="text-3xl font-bold text-text-100 text-center">Daher.Net</h2>
+        <DaherLogo/>
+        <h2 className="text-4xl font-bold text-white text-center select-none font-Pacifico">Daher.Net</h2>
         
         {error && <p className="text-red-500 text-center">{error}</p>}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4" autoComplete="off">
           <div>
             <label className="block text-text-200 mb-1">Email</label>
             <input

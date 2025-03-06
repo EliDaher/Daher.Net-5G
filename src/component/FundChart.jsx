@@ -16,10 +16,12 @@ const socket = io("https://server-xwsx.onrender.com");
 
 export default function FundChart() {
   const [chartData, setChartData] = useState([]);
- // Listen for updates
- socket.on("update-employee-totals", (totalsByEmployee) => {
-  setChartData([...totalsByEmployee]);
-});
+
+  // Listen for updates
+  socket.on("update-employee-totals", (totalsByEmployee) => {
+    setChartData([...totalsByEmployee]);
+  });
+  
   useEffect(() => {
     if(!chartData.length > 0){        
         const getChartData = async ()=>{
