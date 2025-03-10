@@ -11,7 +11,7 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, finalTable, isOpen, onC
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-  /*  try {
+    try {
       const invoiceData = {
         amount: TotalInvoices, // قيمة الفاتورة
         employee: user.username, // اسم الموظف
@@ -26,7 +26,7 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, finalTable, isOpen, onC
     } catch (error) {
       console.error("حدث خطأ أثناء إرسال الفاتورة:", error.response?.data || error.message);
     }
-*/
+
     copyToClipboard(finalTable)
 
     clearAllTables();
