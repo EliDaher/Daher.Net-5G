@@ -1,6 +1,8 @@
-import React from "react"
+import React from "react";
 
 export default function FinalTableCom({finalTable}){
+
+   
 
     return <>
         {finalTable.length > 0 ? 
@@ -18,9 +20,9 @@ export default function FinalTableCom({finalTable}){
                     <tbody className="">
                         {finalTable.map(inv => {return(
                                 <tr>  
+                                    <td className="w-10 py-1 px-2 border-primary-500">{inv.customerDetails}</td>
                                     <td className="w-10 py-1 px-2 border-primary-500">{inv.customerName}</td>
                                     <td className="w-10 py-1 px-2 border-primary-500">{inv.customerNumber}</td>
-                                    <td className="w-10 py-1 px-2 border-primary-500">{inv.customerDetails}</td>
                                     <td className="w-10 py-1 px-2 border-primary-500">{inv.invoiceNumber}</td>
                                     <td className="w-10 py-1 px-2 border-primary-500">{inv.invoiceValue}</td>
                                 </tr>

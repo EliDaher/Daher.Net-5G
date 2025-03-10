@@ -43,6 +43,10 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
             setInvoicesData(elecMatchingRows)
             setOriginalRows(elecOriginalRows)
             setWork(false);
+        } else {
+            setInvoicesData([])
+            setOriginalRows([])
+            setWork(false);
         }
     }, [elecMatchingRows]);
     
@@ -194,9 +198,9 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
                                                                   updateElec(updateRow, updateCol, updateVal);
                                                                 }
                                                                 const newInvoice = {
-                                                                    customerName:(invoice)[1],
+                                                                    customerName:(invoice)[2],
                                                                     customerNumber:(invoice)[3],
-                                                                    customerDetails:(invoice)[2],
+                                                                    customerDetails:(invoice)[1],
                                                                     invoiceNumber:(invoice)[cellIndex-3],
                                                                     invoiceValue:(invoice)[cellIndex-2],
                                                                 }

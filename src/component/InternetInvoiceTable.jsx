@@ -33,6 +33,10 @@ export default function InternetInvoiceTable({ loading, internetMatchingRows, in
             setInvoicesData(internetMatchingRows)
             setOriginalRows(internetOriginalRows)
             setWork(false);
+        }else {
+            setInvoicesData([])
+            setOriginalRows([])
+            setWork(false);
         }
     }, [internetMatchingRows]);
     

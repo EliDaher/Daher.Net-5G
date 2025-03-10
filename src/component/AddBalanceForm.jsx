@@ -19,7 +19,7 @@ function AddBalanceForm({ payOrInv, isOpen, onClose, onSubmit }) {
     try {
         const invoiceData = {
           amount:  payOrInv == "pay"
-          ? amount
+          ? Number(amount)
           : Number(-amount), // قيمة الفاتورة
           employee: user.username, // اسم الموظف
           details:  [{
@@ -30,7 +30,7 @@ function AddBalanceForm({ payOrInv, isOpen, onClose, onSubmit }) {
                 customerNumber:"0",
                 invoiceNumber:"0",
                 invoiceValue:  payOrInv == "pay"
-                ? amount
+                ? Number(amount)
                 : Number(-amount),
             }]
         };

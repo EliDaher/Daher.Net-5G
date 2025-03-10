@@ -46,6 +46,10 @@ function Invoice(){
         setWaterTotal(0)
         setPhoneTotal(0)
         setFinalTable([])
+        setElecOriginalRows([])
+        setElecMatchingRows([])
+        setInternetOriginalRows([])
+        setInternetMatchingRows([])
     }
 
 
