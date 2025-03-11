@@ -80,7 +80,6 @@ function Invoice(){
 
     return<>
         <div className="flex-col w-full">
-            {/* 🔍 حقل البحث */}
             <div className="mb-4 flex flex-wrap justify-center mx-auto my-4 select-none">
                 <div className="flex gap-3 px-2 mr-10">
                     <button onClick={()=>{

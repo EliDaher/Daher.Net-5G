@@ -11,7 +11,9 @@ import EmployeeBalanceTotal from "../component/EmployeeBalanceTotal";
 export default function EmployeeBalance(){
     const { user } = useAuth();
     const [BalanceTableData, setBalanceTableData] = useState([]);
+    const [searchedTable, setSearchedTable] = useState([]);
     const [Total, setTotal] = useState(0);
+    const [searchText, setSearchText] = useState("");
 
     const [isOpen, setIsOpen] = useState(false);
     const [payOrInv, setPayOrInv] = useState("pay");
@@ -54,9 +56,40 @@ export default function EmployeeBalance(){
         setTotal(totalAmount);
     }, [BalanceTableData]);
 
+    useEffect(()=>{
+        searchForRows()
+    }, [searchText])
+
+    const searchForRows = () => {
+        const searchedTable = BalanceTableData.filter(entry => 
+            entry.details.some(detail => 
+                Object.values(detail).some(value => 
+                    typeof value === "string" && value.includes(searchText)
+                )
+            )
+        );
+        setSearchedTable(searchedTable);
+    };
+    
+
     return<>
         <div className="w-full" dir="rtl">
-            <BalanceTable loading={loading} dataTable={BalanceTableData}/>
+            <form dir="ltr" className="flex flex-wrap justify-center mx-auto my-2 select-none">
+                <input
+                  type="text"
+                  placeholder="بحث برقم الهاتف"
+                  className="p-1 rounded-l-lg w-60 text-center text-text-900 shadow-md outline-none border border-primary-500"
+                  value={searchText}
+                  onChange={(e) => {
+                    setSearchText(e.target.value);
+                  }}
+                />
+                <button 
+                className="p-2 rounded-r-lg bg-primary-500 text-white font-bold"
+                >بحث</button>
+            </form>
+
+            <BalanceTable loading={loading} dataTable={searchText.length > 0 ? searchedTable : BalanceTableData}/>
 
            <EmployeeBalanceTotal setPayOrInv={setPayOrInv} openAddBalanceForm={openAddBalanceForm} Total={Total}/>
            {/* <div className="bg-accent-500 m-3 mt-10 p-5 rounded text-center text-3xl font-black hover:bg-accent-600">

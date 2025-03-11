@@ -6,8 +6,6 @@ import { useEffect } from "react"
 
 export default function BalanceTable({loading, dataTable = [], allBalanceTable = []}){
 
-    console.log(allBalanceTable)
-
     return <>
         <div className={`overflow-y-scroll scrollbar-sm h-[70vh] w-full border border-primary-700 ${loading ? `animate-pulse` : ``}`}>
             <table className="w-full">
@@ -33,6 +31,7 @@ export default function BalanceTable({loading, dataTable = [], allBalanceTable =
                                         return <div key={index} className="flex items-center justify-center gap-3">
                                         <div>{invoice.customerDetails}</div>
                                         <div>/ {invoice.customerName}</div>
+                                        <div>/ {invoice.customerNumber}</div>
                                         </div>
                                     })
                                 }
