@@ -32,6 +32,9 @@ function Navbar({setOpenNav, openNav}){
             <div>
                 <Navbutton buttonText={"My Balance"} linkDirectory={"myBalance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
             </div>
+            <div className={`${user.role != "admin"? "hidden" : "block"}`}>
+                <Navbutton buttonText={"Balance"} linkDirectory={"balance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
+            </div>
            {/* <div>
                 <Navbutton buttonText={"Balance"} linkDirectory={"balance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
             </div>*/}

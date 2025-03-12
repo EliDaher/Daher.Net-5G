@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import axios from "axios";
 
 
-function AddBalanceForm({ payOrInv, isOpen, onClose, onSubmit }) {
+function AddBalanceForm({ payOrInv, isOpen, onClose, onSubmit, mahal = false }) {
   if (!isOpen) return null;
   const [amount, setAmount] = useState(0);
   const [customerName, setCustomerName] = useState("");
@@ -21,7 +21,7 @@ function AddBalanceForm({ payOrInv, isOpen, onClose, onSubmit }) {
           amount:  payOrInv == "pay"
           ? Number(amount)
           : Number(-amount), // قيمة الفاتورة
-          employee: user.username, // اسم الموظف
+          employee: mahal ? "mahal" : user.username, // اسم الموظف
           details:  [{
                 customerDetails: details,
                 customerName: payOrInv == "pay"

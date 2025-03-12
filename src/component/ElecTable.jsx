@@ -95,7 +95,7 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
                         <tbody>
                             {invoicesData.map((invoice, index) => {
                                 const invoiceValues = Object.values(invoice);
-                                const totalCells = 60;
+                                const totalCells = 70;
 
                                 return (
                                     <tr
@@ -106,7 +106,7 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
                                         ${invoiceValues[1].includes("ميا") ? `bg-blue-200` : ``}
                                         [&>*:nth-child(6n-1)>*:nth-child(1)>*]:w-1 [&>*:nth-child(1)>*>*]:w-10
                                         [&>*:nth-child(6n-1)>*>*]:w-20 [&>*:nth-child(6n-1)]:bg-primary-700 
-                                        hover:bg-primary-100`}
+                                        hover:bg-primary-100 [&>*:nth-child(6n)>*:nth-child(1)>*]:w-14`}
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (
@@ -127,7 +127,7 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
                                                           setInvoicesData(updatedInvoices);
                                                         }
                                                       }}
-                                                      className="p-1 w-24 bg-transparent outline-none text-center"
+                                                      className="p-1 w-32 bg-transparent outline-none text-center"
                                                     />    
                                                     <button 
                                                         onClick={(e)=>{

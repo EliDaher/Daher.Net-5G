@@ -102,7 +102,7 @@ export default function InternetInvoiceTable({ loading, internetMatchingRows, in
                                 return (
                                     <tr
                                         key={index}
-                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(3n+11)>*>*]:w-7 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100"
+                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(3n+11)>*>*]:w-7 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100 [&>*:nth-child(8)>*>*]:w-52"
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (
