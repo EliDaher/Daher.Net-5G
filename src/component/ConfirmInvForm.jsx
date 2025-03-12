@@ -4,7 +4,7 @@ import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import { useReactToPrint } from "react-to-print";
 
-function ConfirmInvForm({ clearAllTables, TotalInvoices, finalTable, isOpen, onClose, onSubmit }) {
+function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, finalTable, isOpen, onClose, onSubmit }) {
   if (!isOpen) return null;
   const { user } = useAuth();
 
@@ -166,7 +166,23 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, finalTable, isOpen, onC
                 <div className="text-right">
                   <FinalTableCom finalTable={finalTable}></FinalTableCom>
                 </div>
-                <h3 className="my-3">المجموع : <strong>{TotalInvoices}</strong></h3>
+                <div dir="ltr">
+                  <h3 className="my-3">المجموع : 
+                  <input 
+                    lang="en"
+                    dir="ltr"
+                    inputMode="numeric"
+                    className="p-1 font-bold text-left font-mono"
+                    type="number"
+                    min="0"
+                    value={TotalInvoices}
+                    onChange={(e) => {
+                      const englishNumbers = e.target.value.replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d));
+                      setTotalInvoices(englishNumbers);
+                    }}
+                  />
+                  </h3>
+                </div>
               </div>
             </div>
             <div className="flex justify-start gap-3">

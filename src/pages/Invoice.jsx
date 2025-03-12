@@ -118,6 +118,14 @@ function Invoice(){
                   onChange={(e) => {
                     setSearchText({PhNumber: e.target.value});
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault(); // منع الإرسال التلقائي
+                      setWork(true);
+                      searchForRows();
+                      clearAllTables();
+                    }
+                  }}
                 />
                 <button 
                     onClick={()=>{
@@ -161,7 +169,7 @@ function Invoice(){
             <div className="w-80 m-auto rounded-lg px-6 py-3">
                 <FinalTableCom finalTable={finalTable}></FinalTableCom>
             </div>
-            <ConfirmInvForm clearAllTables={clearAllTables} TotalInvoices={TotalInvoices} finalTable={finalTable} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
+            <ConfirmInvForm setTotalInvoices={setTotalInvoices} clearAllTables={clearAllTables} TotalInvoices={TotalInvoices} finalTable={finalTable} isOpen={isOpen} onClose={closeModal} onSubmit={handleFormSubmit} />
         </div>
         <AddBalanceForm payOrInv={payOrInv} isOpen={payIsOpen} onClose={closePayModal} onSubmit={handlePayFormSubmit} />
     </>
