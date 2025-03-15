@@ -48,8 +48,25 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
         font-family: Arial, sans-serif;
       }
 
+      td, th {
+        border: 1px solid black;
+        padding: 1px;
+        font-weight: bold;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        white-space: normal; /* السماح بلف النص داخل الخلية */
+        text-align: center;
+        max-width: 65px; /* تحديد عرض ثابت للخلايا */
+        width: 65px; /* التأكد من بقاء الخلايا ضمن الحجم المطلوب */
+        height: auto; /* السماح للارتفاع بالتكيف مع المحتوى */
+      }
       .no-print {
         display: none; /* إخفاء العناصر غير المرغوبة أثناء الطباعة */
+      }
+
+      .totalValue{
+        font-weight: bold;
+        font-size: 24px;
       }
 
       @media print {
@@ -90,15 +107,24 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
 
         td, th {
           border: 1px solid black;
-          padding: 5px;
+          padding: 2px;
           font-weight: bold;
           word-wrap: break-word;
+          overflow-wrap: break-word;
+          white-space: normal; /* السماح بلف النص داخل الخلية */
           text-align: center;
-
+          max-width: 65px; /* تحديد عرض ثابت للخلايا */
+          width: 65px; /* التأكد من بقاء الخلايا ضمن الحجم المطلوب */
+          height: auto; /* السماح للارتفاع بالتكيف مع المحتوى */
         }
 
         .total {
           font-weight: bold;
+        }
+
+        .totalValue{
+          font-weight: bold;
+          font-size: 24px;
         }
 
         /* إضافة قطع الورقة بناءً على المحتوى */
@@ -166,13 +192,12 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
                 <div className="text-right">
                   <FinalTableCom finalTable={finalTable}></FinalTableCom>
                 </div>
-                <div dir="ltr">
+                <div className="totalValue" dir="rtl">
                   <h3 className="my-3">المجموع : 
                   <input 
                     lang="en"
                     dir="ltr"
-                    inputMode="numeric"
-                    className="p-1 font-bold text-left font-mono"
+                    className="p-1 font-bold text-left"
                     type="number"
                     min="0"
                     value={TotalInvoices}
@@ -195,6 +220,7 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
               <button
                 onClick={(e) => {
                   e.preventDefault();
+                  handleFormSubmit()
                   handlePrint(); // فتح نافذة الطباعة
                 }}
                 className="bg-accent-500 text-white font-bold px-3 py-1 rounded hover:bg-accent-600"

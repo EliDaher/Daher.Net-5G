@@ -75,14 +75,14 @@ export default function InternetInvoiceTable({ loading, internetMatchingRows, in
                     <table className="w-full text-sm border-collapse">
                         <thead className="bg-gray-800 text-white text-center">
                         <tr className="max-h-2 leading-none border-xl border-primary-800">
-                                <th className="border border-gray-600 px-2 py-2">رقم الفاتورة</th>
-                                <th className="border border-gray-600 px-4 py-2">رقم الهاتف</th>
-                                <th className="border border-gray-600 px-4 py-2">اسم المشترك</th>
-                                <th className="border border-gray-600 px-4 py-2">الشركة</th>
-                                <th className="border border-gray-600 px-4 py-2">السرعة</th>
-                                <th className="border border-gray-600 px-4 py-2">تاريخ التسديد</th>
-                                <th className="border border-gray-600 px-4 py-2">الفاتورة الشهرية</th>
-                                <th className="border border-gray-600 px-4 py-2">ملاحظات</th>
+                                <th className="border border-gray-600 px-1 py-2">#</th>
+                                <th className="border border-gray-600 px-4 py-2 bg-gray-800 sticky right-[0px]">رقم الهاتف</th>
+                                <th className="border border-gray-600 px-4 py-2 bg-gray-800 sticky right-[120px]">اسم المشترك</th>
+                                <th className="border border-gray-600 px-1 py-2 bg-gray-800 sticky right-[240px]">الشركة</th>
+                                <th className="border border-gray-600 px-1 py-2">السرعة</th>
+                                <th className="border border-gray-600 px-1 py-2">تاريخ التسديد</th>
+                                <th className="border border-gray-600 px-4 py-2 bg-gray-800 sticky right-[288px]">الفاتورة الشهرية</th>
+                                <th className="border border-gray-600 px-4 py-2 bg-gray-800 sticky right-[400px]">ملاحظات</th>
 
                                 {thArr.map((thText, index) =>{
                                         return(<>
@@ -102,7 +102,23 @@ export default function InternetInvoiceTable({ loading, internetMatchingRows, in
                                 return (
                                     <tr
                                         key={index}
-                                        className="even:bg-gray-100 transition-all duration-200 [&>*:nth-child(3n+11)>*>*]:w-7 [&>*:nth-child(8)]:bg-yellow-300 [&>*:nth-child(7)]:bg-green-400 hover:bg-primary-100 [&>*:nth-child(8)>*>*]:w-52"
+                                        className="even:bg-gray-100 transition-all
+                                        duration-200 [&>*:nth-child(3n+11)>*>*]:w-7 
+                                        [&>*:nth-child(8)]:bg-yellow-300 
+                                        [&>*:nth-child(7)]:bg-green-400 
+                                        hover:bg-primary-100 [&>*:nth-child(8)>*>*]:w-52 
+                                        [&>*:nth-child(6)>*>*]:w-12 [&>*:nth-child(5)>*>*]:w-12 
+                                        [&>*:nth-child(4)>*>*]:w-12 [&>*:nth-child(1)>*>*]:w-12
+                                        [&>*:nth-child(-n+4)]:sticky
+                                        [&>*:nth-child(7)]:sticky
+                                        [&>*:nth-child(8)]:sticky
+                                        [&>*:nth-child(2)]:right-[0px]
+                                        [&>*:nth-child(3)]:right-[120px]
+                                        [&>*:nth-child(4)]:right-[248px]
+                                        [&>*:nth-child(7)]:right-[297px]
+                                        [&>*:nth-child(8)]:right-[410px]
+                                        [&>*:nth-child(-n+4)]:bg-white
+                                        "
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (

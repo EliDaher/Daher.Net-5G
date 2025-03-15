@@ -80,7 +80,7 @@ function Invoice(){
 
     return<>
         <div className="flex-col w-full">
-            <div className="mb-4 flex flex-wrap justify-center mx-auto my-4 select-none">
+            <div className="sticky top-0 z-30 py-3 shadow bg-gray-100 mb-4 flex flex-wrap justify-center mx-auto my-4 select-none">
                 <div className="flex gap-3 px-2 mr-10">
                     <button onClick={()=>{
                         setPayOrInv("pay")

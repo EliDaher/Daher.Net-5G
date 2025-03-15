@@ -73,20 +73,20 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
                 {invoicesData.length > 0 ? (
                     <table className="w-full text-sm border-collapse">
                         <thead className="bg-gray-800 text-white text-center">
-                            <tr className="max-h-2 leading-none border-xl border-primary-800">
-                                <th className="border border-gray-600 px-1">#</th>
-                                <th className="border border-gray-600 px-2">نوع الفاتورة</th>
-                                <th className="border border-gray-600 px-2"></th>
-                                <th className="border border-gray-600 px-2">الرقم</th>
+                            <tr className="max-h-4 leading-none border-xl border-primary-800">
+                                <th className="border border-gray-600 px-1 sticky right-[0px] z-20 top-0 bg-gray-800">#</th>
+                                <th className="border border-gray-600 px-2 sticky right-[47px] z-20 top-0 bg-gray-800">نوع الفاتورة</th>
+                                <th className="border border-gray-600 px-2 sticky right-[165px] z-20 top-0 bg-gray-800"></th>
+                                <th className="border border-gray-600 px-2 sticky right-[292px] z-20 top-0 bg-gray-800">الرقم</th>
 
                                 {thArr.map(thText =>{
                                     return(<>
                                         <th className="border border-gray-600 bg-primary-800"></th>
-                                        <th className="border border-gray-600 px-2">الدورة</th>
-                                        <th className="border border-gray-600 px-2">قيمة الفاتورة</th>
-                                        <th className="border border-gray-600 px-2">المبلغ المقبوض</th>
-                                        <th className="border border-gray-600 px-2">تاريخ الدفع</th>
-                                        <th className="border border-gray-600 px-2">ملاحظات</th>
+                                        <th className="border border-gray-600 px-2 py-2 ">الدورة</th>
+                                        <th className="border border-gray-600 px-2 py-2 ">قيمة الفاتورة</th>
+                                        <th className="border border-gray-600 px-2 py-2 ">المبلغ المقبوض</th>
+                                        <th className="border border-gray-600 px-2 py-2 ">تاريخ الدفع</th>
+                                        <th className="border border-gray-600 px-2 py-2 ">ملاحظات</th>
                                     </>
                                     )
                                 })}
@@ -104,9 +104,17 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
                                         ${invoiceValues[1].includes("ارضي") ? `bg-orange-200` : ``}
                                         ${invoiceValues[1].includes("كهربا") ? `bg-yellow-200` : ``}
                                         ${invoiceValues[1].includes("ميا") ? `bg-blue-200` : ``}
-                                        [&>*:nth-child(6n-1)>*:nth-child(1)>*]:w-1 [&>*:nth-child(1)>*>*]:w-10
+                                        [&>*:nth-child(6n-1)>*:nth-child(1)>*]:w-1 [&>*:nth-child(1)>*>*]:w-12
                                         [&>*:nth-child(6n-1)>*>*]:w-20 [&>*:nth-child(6n-1)]:bg-primary-700 
-                                        hover:bg-primary-100 [&>*:nth-child(6n)>*:nth-child(1)>*]:w-14`}
+                                        hover:bg-primary-100 [&>*:nth-child(6n)>*:nth-child(1)>*]:w-14
+                                        [&>*:nth-child(-n+4)]:sticky [&>*:nth-child(-n+4)]:z-10
+                                        [&>*:nth-child(-n+4)]:bg-white
+                                        [&>*:nth-child(-n+4)]:font-bold
+
+                                        [&>*:nth-child(1)]:right-0
+                                        [&>*:nth-child(2)]:right-[47px]
+                                        [&>*:nth-child(3)]:right-[165px]
+                                        [&>*:nth-child(4)]:right-[292px]`}
                                         data-key={index}
                                     >
                                         {Array.from({ length: totalCells }, (_, cellIndex) => (
