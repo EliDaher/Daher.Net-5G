@@ -4,10 +4,14 @@ import { database } from '../firebaseConfig';
 import UserCard from "../component/UserCard";
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
+import { useAuth } from "../context/AuthContext";
+import axios from 'axios';
+
 
 const ITEMS_PER_PAGE = 12; // عدد المستخدمين في كل صفحة
 
 const UsersList = () => {
+  const { user } = useAuth();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,25 +20,43 @@ const UsersList = () => {
   const [isCardView, setIsCardView] = useState(true); // تبديل العرض
 
   useEffect(() => {
-    const fetchUsersData = async () => {
-      try {
-        const dbRef = ref(database);
-        const snapshot = await get(child(dbRef, 'Subscribers')); 
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const usersList = Object.keys(data).map(key => ({ id: key, ...data[key] }));
-          setUsers(usersList);
-        } else {
-          console.log("No data available");
+    if(user.role == "admin"){
+      const fetchUsersData = async () => {
+        try {
+          const dbRef = ref(database);
+          const snapshot = await get(child(dbRef, 'Subscribers')); 
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const usersList = Object.keys(data).map(key => ({ id: key, ...data[key] }));
+            setUsers(usersList);
+          } else {
+            console.log("No data available");
+          }
+        } catch (error) {
+          setError("Error reading data: " + error.message);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        setError("Error reading data: " + error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+      };
+      
 
-    fetchUsersData();
+      fetchUsersData();
+    }else{
+      const fetchDealerCustomers = async () => {
+        try {
+          const dealer = user.username;
+          const response = await axios.get(`https://server-xwsx.onrender.com/getDealerCustomers`, {
+            params: { dealer }
+          });
+          setUsers(response.data);
+        } catch (error) {
+          setError(error.response?.data?.error || 'حدث خطأ أثناء جلب البيانات');
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchDealerCustomers();
+    }
   }, []);
 
   if (loading) return <Loading />;

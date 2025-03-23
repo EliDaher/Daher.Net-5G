@@ -19,7 +19,7 @@ function UserPage() {
     setTotal(invoicesVal + paymentsVal);
   }, [invoicesVal, paymentsVal]);
 
-  if (!user.role.includes("admin")) {
+  if (!user.role.includes("admin") && !user.role.includes("dealer")) {
     return <div className='mt-52 m-auto'>عذرا لا تملك صلاحية للدخول</div>;
   }
 

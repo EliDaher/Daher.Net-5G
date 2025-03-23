@@ -49,7 +49,6 @@ function App() {
             <Route path="/customers" element={<Customers />} />
             <Route path="/invoice" element={<Invoice />} />
             <Route path="/subscriber/:id" element={<UserPage />} />
-            <Route path="*" element={<Navigate to={user.role === "admin" ? "/dashboard" : "/invoice"} />} /> {/* Redirect unknown routes */}
           </Routes>
         </main>
       </>

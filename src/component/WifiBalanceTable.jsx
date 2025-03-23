@@ -4,14 +4,14 @@ export default function WifiBalanceTable(){
     const [payments, setPayments] = useState([])
 
     const getLast5gBalance = () => {
-        fetch("https://server-xwsx.onrender.com/getLast5GBalace")
+        fetch("https://server-xwsx.onrender.com/getLast5gBalance")
         .then(response => response.json())
         .then(data => setPayments(data))
-        .catch(error => console.error("حدث خطأ:", error));
+        .catch(error => {console.error("حدث خطأ:", error)});
     }
 
     useEffect(()=>{
-        console.log(getLast5gBalance())
+        getLast5gBalance()
     }, [])
 
     return<>
@@ -26,7 +26,7 @@ export default function WifiBalanceTable(){
             </thead>
             <tbody>           
             {
-                payments.map((payment, index) => {
+                payments && payments.map((payment, index) => {
                     return <tr key={index} className="bg-text-100 text-secondary-950">
                         <td className="p-1 text-center border border-secondary-200 font-[600]">{payment.name}</td>
                         <td className="p-1 text-center border border-secondary-200 font-[600]">{payment.amount}</td>

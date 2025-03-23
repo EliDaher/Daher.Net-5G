@@ -117,12 +117,14 @@ export default function Balance() {
                                 </div>
                             </div>
                         </div>
+                     {
                         <div className="absolute w-full h-full shadow-lg shadow-primary-800 rounded-xl flex justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
                             <div className="w-full h-2/3 overflow-auto scrollbar-sm border border-primary-950">
                                 <WifiBalanceTable/>
                             </div>
                                 
                         </div>
+                     }
                     </div>
                 </div>
             </div>

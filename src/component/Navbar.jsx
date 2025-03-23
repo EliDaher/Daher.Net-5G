@@ -23,13 +23,13 @@ function Navbar({setOpenNav, openNav}){
             <div className={`${user.role != "admin"? "hidden" : "block"}`}>
                 <Navbutton buttonText={"Dashboard"} linkDirectory={"Dashboard"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
             </div>
-            <div className={`${user.role != "admin"? "hidden" : "block"}`}>
+            <div className={`${(user.role != "admin" && user.role != "dealer") ? "hidden" : "block"}`}>
                 <Navbutton buttonText={"Customers"} linkDirectory={"Customers"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
             </div>
-            <div>
+            <div className={`${user.role == "dealer" ? "hidden" : "block"}`}>
                 <Navbutton buttonText={"Invoice"} linkDirectory={"Invoice"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
             </div>
-            <div>
+            <div className={`${user.role == "dealer" ? "hidden" : "block"}`}>
                 <Navbutton buttonText={"My Balance"} linkDirectory={"myBalance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
             </div>
             <div className={`${user.role != "admin"? "hidden" : "block"}`}>

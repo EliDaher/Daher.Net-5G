@@ -27,6 +27,7 @@ const Login = () => {
 
       if (response.data.user) {
         login(response.data.user);
+        navigate(response.data.user.role === "admin" ? "/dashboard" : response.data.user.role === "dealer" ? "/customers" : "/invoice");
       } else {
         throw new Error("بيانات تسجيل الدخول غير صحيحة");
       }
@@ -37,13 +38,6 @@ const Login = () => {
       setLoading(false);
     }
   };
-
-  // التنقل بعد تحديث user
-  useEffect(() => {
-    if (user) {
-      navigate(user.role === "admin" ? "/dashboard" : "/invoice");
-    }
-  }, [user, navigate]);
 
   return (
     <div className="flex max-h-full items-center justify-center w-screen h-screen">
