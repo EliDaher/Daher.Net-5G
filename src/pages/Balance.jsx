@@ -4,6 +4,7 @@ import axios from "axios";
 import { io } from "socket.io-client";
 import AddBalanceForm from "../component/AddBalanceForm";
 import WifiBalanceTable from "../component/WifiBalanceTable";
+import WifiTotalForm from "../component/WifiTotalForm";
 
 const socket = io("https://server-xwsx.onrender.com", {
     transports: ["websocket", "polling"],
@@ -118,9 +119,12 @@ export default function Balance() {
                             </div>
                         </div>
                      {
-                        <div className="absolute w-full h-full shadow-lg shadow-primary-800 rounded-xl flex justify-center [backface-visibility:hidden] [transform:rotateY(180deg)]">
-                            <div className="w-full h-2/3 overflow-auto scrollbar-sm border border-primary-950">
+                        <div className="absolute w-full h-full shadow-lg shadow-primary-800 md:flex-row flex-col gap-1 justify-center  [backface-visibility:hidden] [transform:rotateY(180deg)]">
+                            <div className="w-full h-80 overflow-auto scrollbar-sm border border-primary-500">
                                 <WifiBalanceTable/>
+                            </div>
+                            <div className="w-full h-80 mt-2">
+                                <WifiTotalForm/>
                             </div>
                                 
                         </div>
