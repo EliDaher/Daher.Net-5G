@@ -35,9 +35,9 @@ function Navbar({setOpenNav, openNav}){
             <div className={`${user.role != "admin"? "hidden" : "block"}`}>
                 <Navbutton buttonText={"Balance"} linkDirectory={"balance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
             </div>
-           {/* <div>
-                <Navbutton buttonText={"Balance"} linkDirectory={"balance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>
-            </div>*/}
+            <div className={`${user.role != "admin"? "hidden" : "block"}`}>
+                <Navbutton buttonText={"Financial statement"} linkDirectory={"FinancialStatement"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
+            </div>
             
             <div onClick={()=> logout()} className="w-20 text-center p-1 px-2 border border-primary-800 shadow shadow-primary-900 absolute bottom-2 left-1/3 font-bold text-text-100 rounded-lg hover:bg-primary-800">
                 <Link to={"/login"}>

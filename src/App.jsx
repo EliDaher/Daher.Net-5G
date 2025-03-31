@@ -7,6 +7,7 @@ import UserPage from "./pages/UserPage";
 import Login from "./pages/Login";
 import Balance from "./pages/Balance";
 import EmployeeBalance from "./pages/EmployeeBalance";
+import FinancialStatement from "./pages/FinancialStatement";
 import Navbar from "./component/Navbar";
 import { useAuth } from "./context/AuthContext";
 
@@ -48,6 +49,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/customers" element={<Customers />} />
             <Route path="/invoice" element={<Invoice />} />
+            <Route path="/FinancialStatement" element={<FinancialStatement />} />
             <Route path="/subscriber/:id" element={<UserPage />} />
           </Routes>
         </main>
