@@ -28,10 +28,13 @@ export default function BalanceTable({loading, dataTable = [], allBalanceTable =
                                 <td className="p-2 border border-primary-300 text-center">
                                 {
                                     inv.details.map((invoice, index) => {
+                                        console.log(invoice)
+
                                         return <div key={index} className="flex items-center justify-center gap-3">
                                         <div>{invoice.customerDetails}</div>
                                         <div>/ {invoice.customerName}</div>
                                         <div>/ {invoice.customerNumber}</div>
+                                        <div>/ {invoice.invoiceNumber}</div>
                                         </div>
                                     })
                                 }
