@@ -105,7 +105,7 @@ function CustomerDetails({id, total}){
                     </div>
                     
                     <div className="flex my-2 mx-1">
-                        <button onClick={openModalPay} className={` ${user.role == "dealer" ? `hidden` : `block`}  text-center text-md w-1/2 rounded p-2 ml-2 bg-primary-700 text-text-100 font-bold hover:bg-primary-900`}>اضافة دفعة</button>
+                        <button onClick={openModalPay} className={`text-center text-md w-full rounded p-2 ml-2 bg-primary-700 text-text-100 font-bold hover:bg-primary-900`}>اضافة دفعة</button>
                         <button onClick={openInvoiceModal} className={` ${user.role == "dealer" ? `hidden` : `block`} text-center text-md w-1/2 p-2 rounded bg-accent-500 text-text-950 font-bold hover:bg-accent-700`}>اضافة فاتورة</button>
                     </div>
                 </div>

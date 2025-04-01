@@ -1,57 +1,42 @@
 import React, { useState } from "react";
-import { ref, set, push, get } from "firebase/database";
-import { database } from '../firebaseConfig';
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 
-function PaymentsForm({ total, isOpen, onClose, onSubmit, SubscriberID}) {
+function PaymentsForm({ total, isOpen, onClose, onSubmit, SubscriberID }) {
   if (!isOpen) return null;
-  const [today,setToday] = useState(new Date().toISOString().split('T')[0]);
-  const [amount, setAmount] = useState(0)
 
-
+  const [today, setToday] = useState(new Date().toISOString().split("T")[0]);
+  const [amount, setAmount] = useState("");
+  const [details, setDetails] = useState("");
+  const { user } = useAuth();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    
-    // إرسال البيانات إلى Firebase
-    const dbRef = ref(database, "Payments");
-    const snapshot = await get(dbRef);
-    const subscriberCount = snapshot.exists() ? Object.keys(snapshot.val()).length : 0;
-    const PaymentID = subscriberCount + 1; // تعيين id جديد بناءً على العدد + 1
-    
-    // البيانات المرسلة من النموذج
-    const formData = {
-        Amount: amount,
-        Date: document.getElementById("Date").value,
-        Details: document.getElementById('Details').value,
-        PaymentID: PaymentID,
-        SubscriberID: SubscriberID,
-    };
 
-    // إضافة id إلى البيانات
-    formData.id = PaymentID;
-    const newDataRef = ref(database, `Payments/${PaymentID}`);
-    await set(newDataRef, formData);
+    try {
+      const paymentData = {
+        amount: Number(amount), // تحويل القيمة إلى رقم
+        date: today,
+        details: details,
+        subscriberID: SubscriberID,
+        total: total || 0, // التأكد من أن total ليست undefined
+      };
 
-    set(newDataRef, formData)
+      if (user.role === "dealer") {
+        paymentData.dealer = user.username;
+      }
 
-    var newTotal = Number(total) + Number(amount)
-    const updateCostumerBalance = ref(database, `Subscribers/${SubscriberID}/Balance`);
-    await set(updateCostumerBalance, total + newTotal);
+      const response = await axios.post(
+        "https://server-xwsx.onrender.com/addPayment",
+        paymentData
+      );
 
-    set(updateCostumerBalance, newTotal)
-
-
-    .then(() => {
-      console.log("Data added successfully!");
-      onClose(); // إغلاق النموذج بعد الإرسال
-    })
-    .catch((error) => {
-      console.error("Error adding data:", error);
-    });
-
-    onSubmit();
-    onClose();
-    
+      console.log("Response:", response.data);
+      onSubmit();
+      onClose();
+    } catch (error) {
+      console.error("Error sending payment:", error);
+    }
   };
 
   return (
@@ -64,64 +49,53 @@ function PaymentsForm({ total, isOpen, onClose, onSubmit, SubscriberID}) {
           ✕
         </button>
         <h2 className="text-xl font-bold text-gray-800 mb-4 text-right">
-          اضافة دفعة للمشترك
+          إضافة دفعة للمشترك
         </h2>
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
-            <label
-              htmlFor="Amount"
-              className="mr-1 block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="Amount" className="block text-sm font-medium text-gray-700 text-right">
               القيمة
             </label>
             <input
-                tabIndex={1}
+              tabIndex={1}
               type="number"
               id="Amount"
               required
               value={amount}
-              onChange={(e) => {setAmount(e.target.value)}}
-              className="focus:outline-primary mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-right"
+              onChange={(e) => setAmount(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 text-right"
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="Date"
-              className="mr-1 block text-sm font-medium text-gray-700 text-right"
-            >
+            <label htmlFor="Date" className="block text-sm font-medium text-gray-700 text-right">
               تاريخ الدفع
             </label>
             <input
               tabIndex={2}
-              type="Date"
+              type="date"
               id="Date"
               required
-              onChange={(e) => {setToday(e.target.value)}}
               value={today}
-              className="focus:outline-primary mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              onChange={(e) => setToday(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="mb-4">
-            <label
-              htmlFor="Details"
-              className="mr-1 block text-sm font-medium text-gray-700 text-right"
-            >
+            <label htmlFor="Details" className="block text-sm font-medium text-gray-700 text-right">
               تفاصيل
             </label>
             <textarea
-                tabIndex={2}
-              type="text"
+              tabIndex={3}
               id="Details"
               required
-              className="focus:outline-primary mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
           <div className="flex justify-start">
-            <button
-              type="submit"
-              className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600"
-            >
-              Save
+            <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600">
+              حفظ
             </button>
           </div>
         </form>
