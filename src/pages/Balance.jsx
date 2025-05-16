@@ -90,8 +90,8 @@ export default function Balance() {
                         <h1 className="text-center">{!isFlipped ? 'المحل' : 'فضائي'}</h1>
                     </div>
 
-                    <div className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}>  
-                        <div className="absolute w-full h-full shadow-lg shadow-primary-800 rounded-xl flex flex-col [backface-visibility:hidden]">
+                    <div className={`relative w-full h-screen transition-transform duration-700 [transform-style:preserve-3d] ${isFlipped ? "[transform:rotateY(180deg)]" : ""}`}>  
+                        <div className="absolute w-full h-screen shadow-lg shadow-primary-800 rounded-xl flex flex-col [backface-visibility:hidden]">
                             <div className="flex flex-col md:flex-row" dir="rtl">
                                 <BalanceTable loading={loading} allBalanceTable={everyBalanceTable} />
                                 <div className="flex md:flex-col gap-3 items-center justify-around border border-primary-900 m-1 py-1 rounded-lg">
