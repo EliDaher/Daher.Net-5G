@@ -10,8 +10,8 @@ function Navbar({setOpenNav, openNav}){
     const { logout, user } = useAuth();
 
     return<>
-        <div className={`bg-primary-950 h-screen w-60 absolute top-0 ${openNav ? "left-0" : "-left-64"} transition-all z-40 shadow-lg`}>
-            <button className="right-2 absolute p-1 bg-primary-950" onClick={() => setOpenNav(!openNav)}>
+        <div className={`bg-primary-950 bg-gradient-to-br from-primary-800 via-primary-600 to-secondary-500 h-screen w-60 absolute top-0 ${openNav ? "left-0" : "-left-64"} transition-all z-40 shadow-lg`}>
+            <button className="right-2 absolute p-1 bg-transparent" onClick={() => setOpenNav(!openNav)}>
                 <i className="fa-solid fa-xmark text-2xl text-white"></i>
             </button>
 
@@ -35,7 +35,7 @@ function Navbar({setOpenNav, openNav}){
             <div className={`${user.role != "admin"? "hidden" : "block"}`}>
                 <Navbutton buttonText={"Balance"} linkDirectory={"balance"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
             </div>
-            <div className={`${user.role != "admin"? "hidden" : "block"}`}>
+            <div className={`${user.role != "admin" && user.role != "employee" ? "hidden" : "block"}`}>
                 <Navbutton buttonText={"Financial statement"} linkDirectory={"FinancialStatement"} setOpenNav={setOpenNav} openNav={openNav} ></Navbutton>            
             </div>
             

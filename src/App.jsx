@@ -26,7 +26,7 @@ function App() {
     return (
       <>
         {/* Navbar */}
-        <div className="text-white flex items-center justify-between w-full bg-primary-950 h-12">
+        <div className="fixed top-0 text-white flex items-center justify-between w-full bg-primary-950 h-12 z-40">
           <h1 className="ml-5 text-3xl font-bold font-Pacifico">Daher.Net</h1>
           <h5 className="text-xl opacity-30 select-none text-text-100">{user.username}</h5>
           <button
@@ -41,7 +41,7 @@ function App() {
         </div>
 
         {/* Main Layout */}
-        <main className="flex max-w-full h-[calc(100vh-3rem)] overflow-y-scroll scrollbar-hide">
+        <main className="flex max-w-full mt-12 overflow-y-scroll scrollbar-hide">
           <Navbar setOpenNav={setOpenNav} openNav={openNav} />
           <Routes>
             <Route path="/balance" element={<Balance />} />

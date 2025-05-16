@@ -153,7 +153,7 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
   };
 
   const copyToClipboard = (copyText) => {
-    const formattedText = copyText.map((item, index) => 
+    /*const formattedText = copyText.map((item, index) => 
       `Customer ${index + 1}:
       - Details: ${item.customerDetails}
       - Name: ${item.customerName}
@@ -164,7 +164,7 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
     ).join("\n\n"); // Separate each object with a newline
 
     navigator.clipboard.writeText(formattedText)
-
+   */
   };
 
   return (
@@ -220,8 +220,8 @@ function ConfirmInvForm({ clearAllTables, TotalInvoices, setTotalInvoices, final
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  handleFormSubmit()
                   handlePrint(); // فتح نافذة الطباعة
+                  handleFormSubmit()
                 }}
                 className="bg-accent-500 text-white font-bold px-3 py-1 rounded hover:bg-accent-600"
               >
