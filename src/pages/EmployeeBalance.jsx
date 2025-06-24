@@ -33,7 +33,7 @@ export default function EmployeeBalance(){
         /*setError(null);*/
 
         try {
-            const response = await axios.post("https://server-xwsx.onrender.com/getEmployeeBalance", {username: user.username} );
+            const response = await axios.post("https://server-uvnz.onrender.com/getEmployeeBalance", {username: user.username} );
 
             setBalanceTableData(response.data.BalanceTable)
         } catch (err) {

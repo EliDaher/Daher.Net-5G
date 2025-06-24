@@ -10,7 +10,7 @@ export default function FinancialStatement() {
         if (!searchValue) return;
         setLoading(true);
         try {
-            const response = await axios.post("https://server-xwsx.onrender.com/searchInFinancialStatment", {
+            const response = await axios.post("https://server-uvnz.onrender.com/searchInFinancialStatment", {
                 searchValue
             });
             setSearchedTable(response.data);

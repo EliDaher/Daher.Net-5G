@@ -59,7 +59,7 @@ function Invoice(){
         setLoading(true)
 
         try {
-            const response = await axios.post("https://server-xwsx.onrender.com/search", searchText );
+            const response = await axios.post("https://server-uvnz.onrender.com/search", searchText );
 
             setElecOriginalRows(response.data.elecOriginalRows)
             setElecMatchingRows(response.data.elecMatchingRows)

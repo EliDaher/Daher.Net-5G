@@ -41,7 +41,7 @@ export default function InternetInvoiceTable({ loading, internetMatchingRows, in
     }, [internetMatchingRows]);
     
     const updateInternet = (originalRow, colIndex, newValue) => {
-        axios.post('https://server-xwsx.onrender.com/update', {
+        axios.post('https://server-uvnz.onrender.com/update', {
             row: originalRow, // رقم الصف الأصلي
             col: colIndex, // رقم العمود
             value: newValue // القيمة الجديدة

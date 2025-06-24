@@ -27,7 +27,7 @@ function PaymentsForm({ total, isOpen, onClose, onSubmit, SubscriberID }) {
       }
 
       const response = await axios.post(
-        "https://server-xwsx.onrender.com/addPayment",
+        "https://server-uvnz.onrender.com/addPayment",
         paymentData
       );
 

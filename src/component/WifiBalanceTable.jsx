@@ -4,7 +4,7 @@ export default function WifiBalanceTable(){
     const [payments, setPayments] = useState([])
 
     const getLast5gBalance = () => {
-        fetch("https://server-xwsx.onrender.com/getLast5gBalance")
+        fetch("https://server-uvnz.onrender.com/getLast5gBalance")
         .then(response => response.json())
         .then(data => setPayments(data))
         .catch(error => {console.error("حدث خطأ:", error)});

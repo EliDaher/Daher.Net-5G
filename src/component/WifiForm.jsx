@@ -18,7 +18,7 @@ function WifiForm({ payOrInv, isOpen, onClose }) {
 
     try {
         
-        axios.post("https://server-xwsx.onrender.com/addWifiExpenses", {
+        axios.post("https://server-uvnz.onrender.com/addWifiExpenses", {
             amount: payOrInv == "pay" ? Number(amount) : Number(-amount),
             employee: user.username,
             details: details + " " + customerName

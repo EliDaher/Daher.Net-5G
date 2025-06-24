@@ -35,7 +35,7 @@ function AddBalanceForm({ payOrInv, isOpen, onClose, onSubmit, mahal = false }) 
             }]
         };
 
-        const response = await axios.post("https://server-xwsx.onrender.com/addInvoice", invoiceData);
+        const response = await axios.post("https://server-uvnz.onrender.com/addInvoice", invoiceData);
 
         if (response.data.success) {
           console.log("تمت إضافة الفاتورة بنجاح!");

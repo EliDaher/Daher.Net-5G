@@ -12,7 +12,7 @@ import {
 import { io } from "socket.io-client";
 import axios from "axios";
 
-const socket = io("https://server-xwsx.onrender.com");
+const socket = io("https://server-uvnz.onrender.com");
 
 export default function FundChart() {
   const [chartData, setChartData] = useState([]);
@@ -26,7 +26,7 @@ export default function FundChart() {
     if(!chartData.length > 0){        
         const getChartData = async ()=>{
 
-          const response = await axios.post("https://server-xwsx.onrender.com/getEmployeesFund");
+          const response = await axios.post("https://server-uvnz.onrender.com/getEmployeesFund");
           setChartData(response.data.TotalFund)
             
         }

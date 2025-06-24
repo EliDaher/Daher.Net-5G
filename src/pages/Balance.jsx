@@ -6,7 +6,7 @@ import AddBalanceForm from "../component/AddBalanceForm";
 import WifiBalanceTable from "../component/WifiBalanceTable";
 import WifiTotalForm from "../component/WifiTotalForm";
 
-const socket = io("https://server-xwsx.onrender.com", {
+const socket = io("https://server-uvnz.onrender.com", {
     transports: ["websocket", "polling"],
     withCredentials: true,
     reconnection: true,
@@ -42,7 +42,7 @@ export default function Balance() {
     useEffect(() => {
         const getBalanceData = async () => {
             try {
-                const response = await axios.post("https://server-xwsx.onrender.com/getEmployeesFund");
+                const response = await axios.post("https://server-uvnz.onrender.com/getEmployeesFund");
                 setTotalByEmployee(response.data.TotalFund);
             } catch (err) {
                 console.error(err);
@@ -55,7 +55,7 @@ export default function Balance() {
         const getFinalBalance = async () => {
             try {
                 setLoading(true);
-                const response = await axios.post("https://server-xwsx.onrender.com/getEveryBalance");
+                const response = await axios.post("https://server-uvnz.onrender.com/getEveryBalance");
                 setEveryBalanceTable(response.data.everyBalance);
             } catch (err) {
                 console.error(err);

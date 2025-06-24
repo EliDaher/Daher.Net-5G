@@ -45,7 +45,7 @@ const UsersList = () => {
       const fetchDealerCustomers = async () => {
         try {
           const dealer = user.username;
-          const response = await axios.get(`https://server-xwsx.onrender.com/getDealerCustomers`, {
+          const response = await axios.get(`https://server-uvnz.onrender.com/getDealerCustomers`, {
             params: { dealer }
           });
           setUsers(response.data);

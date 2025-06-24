@@ -16,7 +16,7 @@ export default function WifiTotalForm() {
 
     const getTotal = async () => {
         try {
-            const response = await axios.get("https://server-xwsx.onrender.com/getWifiTotal");
+            const response = await axios.get("https://server-uvnz.onrender.com/getWifiTotal");
 
             setWifiBalance(response.data.WifiBalance || []);
             setWifiPayments(response.data.WifiPayments || []);

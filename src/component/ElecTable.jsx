@@ -25,7 +25,7 @@ export default function ElecTable({ loading, elecMatchingRows, elecOriginalRows,
 
     
     const updateElec = (originalRow, colIndex, newValue) => {
-        axios.post('https://server-xwsx.onrender.com/updateElec', {
+        axios.post('https://server-uvnz.onrender.com/updateElec', {
             row: originalRow, // رقم الصف الأصلي
             col: colIndex, // رقم العمود
             value: newValue // القيمة الجديدة
