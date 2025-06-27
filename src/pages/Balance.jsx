@@ -121,7 +121,7 @@ export default function Balance() {
                      {
                         <div className="absolute w-full h-full shadow-lg shadow-primary-800 md:flex-row flex-col gap-1 justify-center  [backface-visibility:hidden] [transform:rotateY(180deg)]">
                             <div className="w-full h-80 overflow-auto scrollbar-sm border border-primary-500">
-                                <WifiBalanceTable/>
+                                {/*<WifiBalanceTable/>*/}
                             </div>
                             <div className="w-full h-80 mt-2">
                                 <WifiTotalForm/>

@@ -25,6 +25,7 @@ export default function WifiBalanceTable(){
                 </tr>
             </thead>
             <tbody>           
+                {console.log(payments)}
             {
                 payments && payments.map((payment, index) => {
                     return <tr key={index} className="text-primary-950">
